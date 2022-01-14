@@ -1,16 +1,22 @@
-import * as React from 'react';
-import { Route } from 'react-router';
-import Layout from './components/Layout';
-import Home from './components/Home';
-import Counter from './components/Counter';
-import FetchData from './components/FetchData';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import AdminPage from './pages/adminPage/AdminPage';
+import ArticlesPage from './pages/articlesPage/ArticlesPage';
+import LoginPage from './pages/loginPage/LoginPage';
 
-import './custom.css'
+function App() {
+  return (
+    <div className='App'>
+      {/* <BrowserRouter>
+        <Routes>
+          <Route path='admin/login' element={<LoginPage />} />
+          <Route path='admin/adminPanel' element={<AdminPage />} />
+          <Route path='/' element={<ArticlesPage />} />
+        </Routes>
+      </BrowserRouter> */}
+      <ArticlesPage />
+    </div>
+  );
+}
 
-export default () => (
-    <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data/:startDateIndex?' component={FetchData} />
-    </Layout>
-);
+export default App;
