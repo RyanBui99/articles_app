@@ -17,7 +17,7 @@ export default function ArticlesPage() {
   return (
     <>
       <Header />
-      <Grid justifyContent='center' sx={{ flexGrow: 1 }} container spacing={4} marginTop='2em'>
+      <Grid justifyContent='center' sx={{ flexGrow: 1 }} container spacing={3} marginTop='2em'>
         {[0, 1, 2, 3].map((value: number) => (
           <Grid key={value} item>
             <Articles />

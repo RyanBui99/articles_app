@@ -7,14 +7,13 @@ import LoginPage from './pages/loginPage/LoginPage';
 function App() {
   return (
     <div className='App'>
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <Routes>
-          <Route path='admin/login' element={<LoginPage />} />
-          <Route path='admin/adminPanel' element={<AdminPage />} />
+          <Route path='/admin/login' element={<LoginPage />} />
+          <Route path='/admin/dashboard' element={<AdminPage />} />
           <Route path='/' element={<ArticlesPage />} />
         </Routes>
-      </BrowserRouter> */}
-      <ArticlesPage />
+      </BrowserRouter>
     </div>
   );
 }
