@@ -24,14 +24,14 @@ namespace articles_app.Data
             {
                 Id = ADMIN_ROLE_ID,
                 Name = "admin",
-                NormalizedName = "admin"
+                NormalizedName = "ADMIN",
             });
 
             builder.Entity<IdentityRole>().HasData(new IdentityRole
             {
                 Id = EDITOR_ROLE_ID,
                 Name = "editor",
-                NormalizedName = "editor"
+                NormalizedName = "EDITOR",
             });
 
             var hasher = new PasswordHasher<IdentityUser>();
@@ -41,6 +41,9 @@ namespace articles_app.Data
                 UserName = "admin@admin.com",
                 Email = "admin@admin.com",
                 PasswordHash = hasher.HashPassword(null, "Admin123#"),
+                EmailConfirmed = true,
+                NormalizedUserName = "ADMIN@ADMIN.COM",
+                NormalizedEmail = "ADMIN@ADMIN.COM"
             });
 
             builder.Entity<IdentityUser>().HasData(new IdentityUser
@@ -49,6 +52,9 @@ namespace articles_app.Data
                 UserName = "editor@editor.com",
                 Email = "editor@editor.com",
                 PasswordHash = hasher.HashPassword(null, "Admin123#"),
+                EmailConfirmed = true,
+                NormalizedUserName = "EDITOR@EDITOR.COM",
+                NormalizedEmail = "EDITOR@EDITOR.COM"
             });
 
             builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>

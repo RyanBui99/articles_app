@@ -54,7 +54,7 @@ namespace articles_app
                 app.UseHsts();
             }
 
-            SeedDatabase.SeedUsers(app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope().ServiceProvider);
+            //SeedDatabase.SeedUsers(app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope().ServiceProvider);
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

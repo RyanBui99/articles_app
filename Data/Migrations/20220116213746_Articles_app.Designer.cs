@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using articles_app.Data;
 
 namespace articles_app.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220116213746_Articles_app")]
+    partial class Articles_app
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,16 +51,16 @@ namespace articles_app.Migrations
                         new
                         {
                             Id = "ad376a8f-9eab-4bb9-9fca-30b01540f445",
-                            ConcurrencyStamp = "f8bd34f8-e687-4e5b-a822-5803a7633a92",
+                            ConcurrencyStamp = "1c1b9dba-6917-4aaa-b07e-e428eaa2fd5e",
                             Name = "admin",
-                            NormalizedName = "admin"
+                            NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "vd376a8f-9eab-4bb9-9fca-30b01540f446",
-                            ConcurrencyStamp = "91874f78-73ce-4b14-81e1-e09a5747550b",
+                            ConcurrencyStamp = "30a99d44-75e4-4d9a-aaf5-80ea248ab5e4",
                             Name = "editor",
-                            NormalizedName = "editor"
+                            NormalizedName = "EDITOR"
                         });
                 });
 
@@ -155,13 +157,15 @@ namespace articles_app.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4aa29adc-9735-48be-bc52-b0eda6d6be7a",
+                            ConcurrencyStamp = "4ab79daf-ebf7-4b87-90a2-5f31d345e25e",
                             Email = "admin@admin.com",
-                            EmailConfirmed = false,
+                            EmailConfirmed = true,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEI+g2yNbhA6ej2U5+wAe4pZXReBIGsb28jSuPPDRLGmEpIMNHMkoXBPLy7T8fBObrA==",
+                            NormalizedEmail = "ADMIN@ADMIN.COM",
+                            NormalizedUserName = "ADMIN@ADMIN.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOpFwtwJyGoJLtqoA78UCUBsU/NQIJkCu9mfFdWr2IAGIJOS8Y2fMJQilbtGr9igpQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "50a852c3-851d-4d6f-80a0-01227da0032d",
+                            SecurityStamp = "3c492352-58b9-4154-b9bd-c77f19fe13a6",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -169,13 +173,15 @@ namespace articles_app.Migrations
                         {
                             Id = "v18be9c0-aa65-4af8-bd17-00bd9344e576",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c808755b-8bdd-42b4-b53f-02ae4b044df1",
+                            ConcurrencyStamp = "d1313600-50ab-42dd-9a90-625fe36ec896",
                             Email = "editor@editor.com",
-                            EmailConfirmed = false,
+                            EmailConfirmed = true,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEIeb2RiaspaWKP8WLGTSHCqx1+9PuOR4wz1dJqiVx+ql2fpksMgsHmPP4W24LLyU4w==",
+                            NormalizedEmail = "EDITOR@EDITOR.COM",
+                            NormalizedUserName = "EDITOR@EDITOR.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDeuaA1rWW/pu6sjWWfgREghW8IaE3BGEy4/ARyDfBjKML0CaG2GXjSOSt0n84o6aw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6d811a66-fe07-4458-b129-7e365646faf2",
+                            SecurityStamp = "a0a830fd-1f9e-4fa6-b9ab-2259bd1739cb",
                             TwoFactorEnabled = false,
                             UserName = "editor@editor.com"
                         });
