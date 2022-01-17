@@ -88,7 +88,7 @@ export default function NavbarComponent() {
               onClick={handleOpenMenu}
               color='inherit'
             >
-              <MenuIcon />
+              <MenuIcon fontSize='large'/>
             </IconButton>
             <Menu
               id='menu-appbar'
