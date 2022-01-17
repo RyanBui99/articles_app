@@ -8,16 +8,27 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import ILogin from '../../interfaces/ILogin';
+import { APIService } from '../../helpers/APIService';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const loginData: ILogin = {
-      username: data.get('username'),
-      password: data.get('password'),
-    };
-    console.log(loginData);
+
+    try {
+      const data = new FormData(event.currentTarget);
+      const loginData: ILogin = {
+        email: data.get('email'),
+        password: data.get('password'),
+      };
+
+      await APIService.login(loginData);
+      navigate('/admin/dashboard')
+    } catch (error) {
+      console.error(error)
+    }
   };
 
   return (
@@ -39,10 +50,10 @@ export default function LoginPage() {
             margin='normal'
             required
             fullWidth
-            id='username'
-            label='username'
-            name='username'
-            autoComplete='username'
+            id='email'
+            label='email'
+            name='email'
+            autoComplete='email'
             autoFocus
           />
           <TextField
