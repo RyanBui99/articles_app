@@ -15,6 +15,7 @@ import Avatar from '@material-ui/core/Avatar';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { Link } from 'react-router-dom';
 import NavbarComponent from '../../components/NavbarComponent';
+import CreateUserModal from '../../components/modals/CreateUserModal';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,7 +76,17 @@ const users = [
 ];
 
 export default function admin() {
+  const [open, setOpen] = React.useState(true);
   const classes = useStyles();
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <>
       <NavbarComponent />
@@ -94,11 +105,14 @@ export default function admin() {
                 </Typography>
               </Box>
               <Box>
-                <Link to='/create' style={{ textDecoration: 'none' }}>
-                  <Button variant='contained' color='primary'>
-                    CREATE
-                  </Button>
-                </Link>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  onClick={handleClickOpen}
+                >
+                  CREATE
+                </Button>
+                <CreateUserModal handleclose={handleClose} open={open}/>
               </Box>
             </Box>
             <TableContainer component={Paper}>
