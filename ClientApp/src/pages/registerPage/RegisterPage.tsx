@@ -13,11 +13,10 @@ export default function LoginPage() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const loginData: ILoginRegister = {
+    const registerData: ILoginRegister = {
       username: data.get('username'),
       password: data.get('password'),
     };
-    console.log(loginData);
   };
 
   return (
@@ -43,7 +42,7 @@ export default function LoginPage() {
           }}
         >
           <Typography component='h1' variant='h5'>
-            Log in
+            Register
           </Typography>
           <Box
             component='form'
@@ -77,7 +76,7 @@ export default function LoginPage() {
               variant='contained'
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Sign up
             </Button>
           </Box>
         </Box>
