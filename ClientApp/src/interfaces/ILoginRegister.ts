@@ -1,4 +1,4 @@
 export default interface ILoginRegister {
-  username: FormDataEntryValue | null;
+  email: FormDataEntryValue | null;
   password: FormDataEntryValue | null;
 }

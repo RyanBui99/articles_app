@@ -9,6 +9,6 @@ namespace articles_app.Models
         public string Header { get; set; }
         public string Content { get; set; }
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
     }
 }

@@ -14,7 +14,7 @@ export default function LoginPage() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const registerData: ILoginRegister = {
-      username: data.get('username'),
+      email: data.get('username'),
       password: data.get('password'),
     };
   };

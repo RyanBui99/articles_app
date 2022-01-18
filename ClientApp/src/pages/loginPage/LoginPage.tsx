@@ -9,23 +9,42 @@ import Container from '@mui/material/Container';
 import ILoginRegister from '../../interfaces/ILoginRegister';
 import NavbarComponent from '../../components/NavbarComponent';
 import { useNavigate } from 'react-router-dom';
+import { APIService } from '../../helpers/APIService';
+import { Snackbar, SnackbarOrigin } from '@material-ui/core';
+import { Alert } from '@mui/material';
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const [open, setOpen] = React.useState(false);
+  const [message, setMessage] = React.useState();
 
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const loginData: ILoginRegister = {
-      username: data.get('username'),
+      email: data.get('username'),
       password: data.get('password'),
     };
-    console.log(loginData);
+    try {
+      const response = await APIService.login(loginData);
+      console.log(response);
+      navigate('/');
+    } catch (error: any) {
+      console.error(error.response.data.message);
+      setMessage(error.response.data.message);
+    }
   };
 
   return (
     <>
-    <NavbarComponent />
+      <NavbarComponent />
       <Container
         component='main'
         maxWidth='xs'
@@ -37,6 +56,13 @@ export default function LoginPage() {
           height: '90vh',
         }}
       >
+        <Snackbar
+          open={open}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        >
+          <Alert severity='error'>message={message}</Alert>
+        </Snackbar>
         <Box
           sx={{
             display: 'flex',
@@ -79,6 +105,7 @@ export default function LoginPage() {
               fullWidth
               variant='contained'
               sx={{ mt: 3, mb: 2 }}
+              onClick={handleClick}
             >
               Sign In
             </Button>

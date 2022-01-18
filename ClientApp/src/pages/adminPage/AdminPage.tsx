@@ -76,7 +76,7 @@ const users = [
 ];
 
 export default function admin() {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const classes = useStyles();
 
   const handleClickOpen = () => {
@@ -112,7 +112,7 @@ export default function admin() {
                 >
                   CREATE
                 </Button>
-                <CreateUserModal handleclose={handleClose} open={open}/>
+                <CreateUserModal handleclose={handleClose} open={open} />
               </Box>
             </Box>
             <TableContainer component={Paper}>

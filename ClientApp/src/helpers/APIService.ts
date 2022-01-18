@@ -11,4 +11,9 @@ export const APIService = {
     const response = await axios.post(`${URL}/api/authentication/login`, userCredentials);
     return response;
   },
+
+  async register(userCredentials: ILoginRegister) {
+    const response = await axios.post(`${URL}/api/authentication/register`, userCredentials);
+    return response;
+  },
 };

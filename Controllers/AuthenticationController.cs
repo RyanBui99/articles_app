@@ -89,11 +89,13 @@ namespace articles_app.Controllers
                         // Add multipurpose message to make it harder for attacker
                         return BadRequest(new ResponseToClient { Message = "Invalid username or Incorrect password"});
                     }
-                }
-                var loggedInUser = await _userManager.FindByEmailAsync(user.Email);
-                var role = await _userManager.GetRolesAsync(loggedInUser);
 
-                return Ok(new ResponseToClient { Username = loggedInUser.UserName, UserId = loggedInUser.Id, Role = role.First() });
+                    var loggedInUser = await _userManager.FindByEmailAsync(user.Email);
+                    var role = await _userManager.GetRolesAsync(loggedInUser);
+
+                    return Ok(new ResponseToClient { Username = loggedInUser.UserName, UserId = loggedInUser.Id, Role = role.First() });
+                }
+                return BadRequest(new ResponseToClient { Message = "Can't leave fields empty"});
             }
             catch (Exception ex)
             {
