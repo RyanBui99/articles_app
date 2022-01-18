@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { APIService } from '../../helpers/APIService';
 import { Snackbar, SnackbarOrigin } from '@material-ui/core';
 import { Alert } from '@mui/material';
+import Authentication from '../../helpers/Authentication';
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -34,7 +35,8 @@ export default function LoginPage() {
     };
     try {
       const response = await APIService.login(loginData);
-      console.log(response);
+      const { username, userId, role } = response.data;
+      Authentication.setUser({ username, userId, role });
       navigate('/');
     } catch (error: any) {
       console.error(error.response.data.message);
