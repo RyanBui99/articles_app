@@ -42,7 +42,7 @@ namespace articles_app.Controllers
                     // Check if email already exusts
                     if (existingUser != null)
                     {
-                        return BadRequest();
+                        return BadRequest(new ResponseToClient { Message = "Username already exists" });
                     }
 
                     var newUser = new IdentityUser() { Email = user.Email, UserName = user.Email };
@@ -51,6 +51,7 @@ namespace articles_app.Controllers
                     {
                         var doesUserRoleExist = await _roleManager.RoleExistsAsync("user");
 
+                        // Create regular user role
                         if (!doesUserRoleExist)
                         {
                             await _roleManager.CreateAsync(new IdentityRole() { Id = "vd376a8f-9eab-4bb9-9fca-30b01540f446", Name = "user" });
@@ -59,10 +60,10 @@ namespace articles_app.Controllers
                         await _userManager.AddToRoleAsync(newUser, "user");
                         return Ok();
                     } else {
-                        return BadRequest();
+                        return BadRequest(new ResponseToClient { Message = "Unable to create user" });
                     }
                 }
-                return BadRequest();
+                return BadRequest(new ResponseToClient { Message = "Oops, something went wrong..." });
             }
             catch (Exception ex)
             {
@@ -82,18 +83,16 @@ namespace articles_app.Controllers
                     var isCorrect = await _userManager.CheckPasswordAsync(existingUser, user.Password);
 
                     // Check if user exists by finding their email
-                    if (existingUser == null)
+                    if (existingUser == null || !isCorrect)
                     {
-                        return BadRequest();
-                    }
-
-                    // Check if pass incorrect
-                    if (!isCorrect)
-                    {
-                        return BadRequest();
+                        // Add multipurpose message to make it harder for attacker
+                        return BadRequest(new ResponseToClient { Message = "Invalid username or Incorrect password"});
                     }
                 }
-                return Ok();
+                var loggedInUser = await _userManager.FindByEmailAsync(user.Email);
+                var role = await _userManager.GetRolesAsync(loggedInUser);
+
+                return Ok(new ResponseToClient { Username = loggedInUser.UserName, UserId = loggedInUser.Id, Role = role.First() });
             }
             catch (Exception ex)
             {
