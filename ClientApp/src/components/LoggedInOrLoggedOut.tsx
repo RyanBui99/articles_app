@@ -1,14 +1,9 @@
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import CssBaseline from '@mui/material/CssBaseline';
-import { Link } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import React from 'react';
 import Authentication from '../helpers/Authentication';
@@ -48,7 +43,7 @@ export default function LoggedInOrLoggedOut(props: any) {
         <Tooltip title='Open settings'>
           <IconButton onClick={props.handleOpenMenu} sx={{ p: 0 }}>
             <Avatar
-              alt={props.user.username}
+              alt={user.username}
               src='/static/images/avatar/2.jpg'
             />
           </IconButton>

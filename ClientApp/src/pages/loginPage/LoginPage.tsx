@@ -13,11 +13,12 @@ import { APIService } from '../../helpers/APIService';
 import { Snackbar, SnackbarOrigin } from '@material-ui/core';
 import { Alert } from '@mui/material';
 import Authentication from '../../helpers/Authentication';
+import SnackbarComponent from '../../components/SnackbarComponent';
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
-  const [message, setMessage] = React.useState();
+  const [message, setMessage] = React.useState('');
 
   const handleClick = () => {
     setOpen(true);
@@ -58,13 +59,12 @@ export default function LoginPage() {
           height: '90vh',
         }}
       >
-        <Snackbar
+        <SnackbarComponent
           open={open}
-          onClose={handleClose}
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        >
-          <Alert severity='error'>message={message}</Alert>
-        </Snackbar>
+          handleClose={handleClose}
+          message={message}
+          severity='error'
+        />
         <Box
           sx={{
             display: 'flex',

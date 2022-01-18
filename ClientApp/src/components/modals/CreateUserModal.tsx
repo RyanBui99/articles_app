@@ -19,6 +19,8 @@ import {
   RadioGroup,
 } from '@material-ui/core';
 import ICreateEditUser from '../../interfaces/ICreateEditUser';
+import { APIService } from '../../helpers/APIService';
+import SnackbarComponent from '../SnackbarComponent';
 
 /**
  * Modal for creating users, restricted to admin ONLY!!
@@ -28,15 +30,31 @@ import ICreateEditUser from '../../interfaces/ICreateEditUser';
 export default function CreateUserModal(props: any) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const [open, setOpen] = React.useState(false);
+  const [message, setMessage] = React.useState('');
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const createUserData: ICreateEditUser = {
-      username: data.get('username'),
+      email: data.get('username'),
       password: data.get('password'),
       role: data.get('role'),
     };
+
+    try {
+      await APIService.register(createUserData)
+    } catch (error: any) {
+      setMessage(error.response.data.message)
+    }
   };
 
   return (
@@ -47,6 +65,12 @@ export default function CreateUserModal(props: any) {
       aria-labelledby='responsive-dialog-title'
       fullWidth
     >
+      <SnackbarComponent 
+      open={open}
+      handleClose={handleClose}
+      message={message}
+      severity='error'
+      />
       <DialogTitle id='responsive-dialog-title'>Create new user</DialogTitle>
       <DialogContent
         dividers
@@ -96,7 +120,7 @@ export default function CreateUserModal(props: any) {
             </RadioGroup>
           </FormControl>
           <DialogActions>
-            <Button autoFocus type='submit'>
+            <Button onClick={handleClick} autoFocus type='submit'>
               Create
             </Button>
           </DialogActions>
