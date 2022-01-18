@@ -10,7 +10,7 @@ namespace articles_app.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthenticationController :ControllerBase
+    public class AuthenticationController : ControllerBase
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -20,14 +20,6 @@ namespace articles_app.Controllers
         {
             _userManager = userManager;
             _roleManager = roleManager;
-        }
-
-        [HttpGet]
-        [Route("userData")]
-        public IActionResult GetUsers()
-        {
-            var users = _userManager.Users.ToArray();
-            return Ok(users);
         }
 
         [HttpPost]
