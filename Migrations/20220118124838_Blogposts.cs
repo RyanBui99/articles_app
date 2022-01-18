@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace articles_app.Migrations
 {
-    public partial class Articles_app : Migration
+    public partial class Blogposts : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,6 +44,21 @@ namespace articles_app.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BlogPosts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Header = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BlogPosts", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -155,30 +170,17 @@ namespace articles_app.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[,]
-                {
-                    { "ad376a8f-9eab-4bb9-9fca-30b01540f445", "1c1b9dba-6917-4aaa-b07e-e428eaa2fd5e", "admin", "ADMIN" },
-                    { "vd376a8f-9eab-4bb9-9fca-30b01540f446", "30a99d44-75e4-4d9a-aaf5-80ea248ab5e4", "editor", "EDITOR" }
-                });
+                values: new object[] { "ad376a8f-9eab-4bb9-9fca-30b01540f445", "66ee18d8-e957-49bc-aa76-029b2088ca19", "admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[,]
-                {
-                    { "a18be9c0-aa65-4af8-bd17-00bd9344e575", 0, "4ab79daf-ebf7-4b87-90a2-5f31d345e25e", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEOpFwtwJyGoJLtqoA78UCUBsU/NQIJkCu9mfFdWr2IAGIJOS8Y2fMJQilbtGr9igpQ==", null, false, "3c492352-58b9-4154-b9bd-c77f19fe13a6", false, "admin@admin.com" },
-                    { "v18be9c0-aa65-4af8-bd17-00bd9344e576", 0, "d1313600-50ab-42dd-9a90-625fe36ec896", "editor@editor.com", true, false, null, "EDITOR@EDITOR.COM", "EDITOR@EDITOR.COM", "AQAAAAEAACcQAAAAEDeuaA1rWW/pu6sjWWfgREghW8IaE3BGEy4/ARyDfBjKML0CaG2GXjSOSt0n84o6aw==", null, false, "a0a830fd-1f9e-4fa6-b9ab-2259bd1739cb", false, "editor@editor.com" }
-                });
+                values: new object[] { "a18be9c0-aa65-4af8-bd17-00bd9344e575", 0, "8e1f2bf4-339d-4d0b-b83e-340b7240078b", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEBf1YKyLzn1rm9rytQkorvS8Zx1DCh57K7Oc3fEYIrtNPEK68RfORcS0gsZFxOnXHA==", null, false, "195c6ae7-1677-4e37-86d3-a2430aa747b5", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[] { "ad376a8f-9eab-4bb9-9fca-30b01540f445", "a18be9c0-aa65-4af8-bd17-00bd9344e575" });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUserRoles",
-                columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "vd376a8f-9eab-4bb9-9fca-30b01540f446", "v18be9c0-aa65-4af8-bd17-00bd9344e576" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -236,6 +238,9 @@ namespace articles_app.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "BlogPosts");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using articles_app.Data;
 
 namespace articles_app.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220116213746_Articles_app")]
-    partial class Articles_app
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,16 +49,9 @@ namespace articles_app.Migrations
                         new
                         {
                             Id = "ad376a8f-9eab-4bb9-9fca-30b01540f445",
-                            ConcurrencyStamp = "1c1b9dba-6917-4aaa-b07e-e428eaa2fd5e",
+                            ConcurrencyStamp = "66ee18d8-e957-49bc-aa76-029b2088ca19",
                             Name = "admin",
                             NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "vd376a8f-9eab-4bb9-9fca-30b01540f446",
-                            ConcurrencyStamp = "30a99d44-75e4-4d9a-aaf5-80ea248ab5e4",
-                            Name = "editor",
-                            NormalizedName = "EDITOR"
                         });
                 });
 
@@ -157,33 +148,17 @@ namespace articles_app.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4ab79daf-ebf7-4b87-90a2-5f31d345e25e",
+                            ConcurrencyStamp = "8e1f2bf4-339d-4d0b-b83e-340b7240078b",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOpFwtwJyGoJLtqoA78UCUBsU/NQIJkCu9mfFdWr2IAGIJOS8Y2fMJQilbtGr9igpQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBf1YKyLzn1rm9rytQkorvS8Zx1DCh57K7Oc3fEYIrtNPEK68RfORcS0gsZFxOnXHA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3c492352-58b9-4154-b9bd-c77f19fe13a6",
+                            SecurityStamp = "195c6ae7-1677-4e37-86d3-a2430aa747b5",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
-                        },
-                        new
-                        {
-                            Id = "v18be9c0-aa65-4af8-bd17-00bd9344e576",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "d1313600-50ab-42dd-9a90-625fe36ec896",
-                            Email = "editor@editor.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "EDITOR@EDITOR.COM",
-                            NormalizedUserName = "EDITOR@EDITOR.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDeuaA1rWW/pu6sjWWfgREghW8IaE3BGEy4/ARyDfBjKML0CaG2GXjSOSt0n84o6aw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "a0a830fd-1f9e-4fa6-b9ab-2259bd1739cb",
-                            TwoFactorEnabled = false,
-                            UserName = "editor@editor.com"
                         });
                 });
 
@@ -252,11 +227,6 @@ namespace articles_app.Migrations
                         {
                             UserId = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             RoleId = "ad376a8f-9eab-4bb9-9fca-30b01540f445"
-                        },
-                        new
-                        {
-                            UserId = "v18be9c0-aa65-4af8-bd17-00bd9344e576",
-                            RoleId = "vd376a8f-9eab-4bb9-9fca-30b01540f446"
                         });
                 });
 
@@ -277,6 +247,27 @@ namespace articles_app.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("articles_app.Models.BlogPostModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Header")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BlogPosts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

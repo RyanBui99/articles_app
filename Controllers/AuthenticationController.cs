@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using articles_app.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
