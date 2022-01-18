@@ -17,21 +17,11 @@ namespace articles_app.Data
             const string ADMIN_ID = "a18be9c0-aa65-4af8-bd17-00bd9344e575";
             const string ADMIN_ROLE_ID = "ad376a8f-9eab-4bb9-9fca-30b01540f445";
 
-            const string EDITOR_ID = "v18be9c0-aa65-4af8-bd17-00bd9344e576";
-            const string EDITOR_ROLE_ID = "vd376a8f-9eab-4bb9-9fca-30b01540f446";
-
             builder.Entity<IdentityRole>().HasData(new IdentityRole
             {
                 Id = ADMIN_ROLE_ID,
                 Name = "admin",
                 NormalizedName = "ADMIN",
-            });
-
-            builder.Entity<IdentityRole>().HasData(new IdentityRole
-            {
-                Id = EDITOR_ROLE_ID,
-                Name = "editor",
-                NormalizedName = "EDITOR",
             });
 
             var hasher = new PasswordHasher<IdentityUser>();
@@ -46,27 +36,10 @@ namespace articles_app.Data
                 NormalizedEmail = "ADMIN@ADMIN.COM"
             });
 
-            builder.Entity<IdentityUser>().HasData(new IdentityUser
-            {
-                Id=EDITOR_ID,
-                UserName = "editor@editor.com",
-                Email = "editor@editor.com",
-                PasswordHash = hasher.HashPassword(null, "Admin123#"),
-                EmailConfirmed = true,
-                NormalizedUserName = "EDITOR@EDITOR.COM",
-                NormalizedEmail = "EDITOR@EDITOR.COM"
-            });
-
             builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
             {
                 RoleId = ADMIN_ROLE_ID,
                 UserId = ADMIN_ID
-            });
-
-            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
-            {
-                RoleId = EDITOR_ROLE_ID,
-                UserId = EDITOR_ID
             });
         }
     }
