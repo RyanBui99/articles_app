@@ -9,7 +9,7 @@ const Authentication = {
   getUser(): IStorageUser {
     const usernameLocalstorage = JSON.parse(
       localStorage.getItem(key) ||
-        '{"id":"null","isAdmin":false,"username":"null","token":"null"}'
+        '{"userId":"null","username":"null","role":"null"}'
     );
     return usernameLocalstorage;
   },
