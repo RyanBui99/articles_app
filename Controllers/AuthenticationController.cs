@@ -27,6 +27,38 @@ namespace articles_app.Controllers
         }
 
         [HttpPost]
+        [Route("register")]
+        public async Task<IActionResult> Register([FromBody] LoginRequestModel user)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var existingUser = await _userManager.FindByEmailAsync(user.Email);
+                    var newUser = new IdentityUser() { Email= user.Email, UserName = user.Email };
+                    var userCreation = await _userManager.CreateAsync(newUser, user.Password);
+
+                    // Check if email already exusts
+                    if (existingUser != null)
+                    {
+                        return BadRequest();
+                    }
+
+                    if (!userCreation.Succeeded)
+                    {
+                        return BadRequest();
+                    }
+                    return Ok();
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestModel user)
         {
