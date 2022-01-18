@@ -12,10 +12,13 @@ namespace articles_app.Controllers
     public class AuthenticationController :ControllerBase
     {
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AuthenticationController(UserManager<IdentityUser> userManager)
+
+        public AuthenticationController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         [HttpGet]
@@ -35,8 +38,6 @@ namespace articles_app.Controllers
                 if (ModelState.IsValid)
                 {
                     var existingUser = await _userManager.FindByEmailAsync(user.Email);
-                    var newUser = new IdentityUser() { Email= user.Email, UserName = user.Email };
-                    var userCreation = await _userManager.CreateAsync(newUser, user.Password);
 
                     // Check if email already exusts
                     if (existingUser != null)
@@ -44,11 +45,22 @@ namespace articles_app.Controllers
                         return BadRequest();
                     }
 
-                    if (!userCreation.Succeeded)
+                    var newUser = new IdentityUser() { Email = user.Email, UserName = user.Email };
+                    var userCreation = await _userManager.CreateAsync(newUser, user.Password);
+                    if (userCreation.Succeeded)
                     {
+                        var doesUserRoleExist = await _roleManager.RoleExistsAsync("user");
+
+                        if (!doesUserRoleExist)
+                        {
+                            await _roleManager.CreateAsync(new IdentityRole() { Id = "vd376a8f-9eab-4bb9-9fca-30b01540f446", Name = "user" });
+                        }
+
+                        await _userManager.AddToRoleAsync(newUser, "user");
+                        return Ok();
+                    } else {
                         return BadRequest();
                     }
-                    return Ok();
                 }
                 return BadRequest();
             }
