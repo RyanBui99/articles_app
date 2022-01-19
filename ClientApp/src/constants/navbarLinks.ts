@@ -7,18 +7,6 @@ export const navbarLinks = {
       link: '/admin/dashboard',
       component: Link,
     },
-    {
-      linkName: 'Log out',
-      link: '/',
-      component: Link,
-    },
-  ],
-  userLinks: [
-    {
-      linkName: 'Log out',
-      link: '/',
-      component: Link,
-    },
   ],
   navLinks: [
     {

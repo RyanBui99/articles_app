@@ -36,8 +36,8 @@ export default function LoginPage() {
     };
     try {
       const response = await APIService.login(loginData);
-      const { username, userId, role } = response.data;
-      Authentication.setUser({ username, userId, role });
+      const { username, id, role } = response.data;
+      Authentication.setUser({ username, id, role });
       navigate('/');
     } catch (error: any) {
       console.error(error.response.data.message);
@@ -87,7 +87,7 @@ export default function LoginPage() {
               required
               fullWidth
               id='username'
-              label='username'
+              label='Username'
               name='username'
               autoComplete='username'
               autoFocus

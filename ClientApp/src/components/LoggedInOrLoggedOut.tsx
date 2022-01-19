@@ -8,25 +8,23 @@ import MenuIcon from '@mui/icons-material/Menu';
 import React from 'react';
 import Authentication from '../helpers/Authentication';
 import { navbarLinks } from '../constants/navbarLinks';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@material-ui/core';
 
 export default function LoggedInOrLoggedOut(props: any) {
   const user = Authentication.getUser();
+  const navigate = useNavigate();
+
+  const logout = () => {
+    Authentication.logoutUser();
+    navigate('/');
+  };
 
   const AdminOrUser = () => {
     if (user.role == 'admin') {
       return (
         <>
           {navbarLinks.adminLinks.map((link: any, key: number) => (
-            <MenuItem component={link.component} to={link.link} key={key}>
-              {link.linkName}
-            </MenuItem>
-          ))}
-        </>
-      );
-    } else if (user.role == 'user') {
-      return (
-        <>
-          {navbarLinks.userLinks.map((link: any, key: number) => (
             <MenuItem component={link.component} to={link.link} key={key}>
               {link.linkName}
             </MenuItem>
@@ -42,10 +40,7 @@ export default function LoggedInOrLoggedOut(props: any) {
       <Box sx={{ flexGrow: 0 }}>
         <Tooltip title='Open settings'>
           <IconButton onClick={props.handleOpenMenu} sx={{ p: 0 }}>
-            <Avatar
-              alt={user.username}
-              src='/static/images/avatar/2.jpg'
-            />
+            <Avatar alt={user.username} src='/static/images/avatar/2.jpg' />
           </IconButton>
         </Tooltip>
         <Menu
@@ -65,55 +60,57 @@ export default function LoggedInOrLoggedOut(props: any) {
           onClose={props.handleCloseMenu}
         >
           <AdminOrUser />
+          <MenuItem onClick={logout}>
+            Log out
+          </MenuItem>
         </Menu>
       </Box>
     );
-  } else {
-    return (
-      <>
-        <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
-          <IconButton
-            size='large'
-            aria-label='nav-links'
-            aria-controls='menu-appbar'
-            aria-haspopup='true'
-            onClick={props.handleOpenMenu}
-            color='inherit'
-          >
-            <MenuIcon fontSize='large' />
-          </IconButton>
-          <Menu
-            id='menu-appbar'
-            anchorEl={props.anchorNav}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            open={Boolean(props.anchorNav)}
-            onClose={props.handleCloseMenu}
-            sx={{ mt: '40px' }}
-          >
-            {navbarLinks.navLinks.map((link: any, key: number) => (
-              <MenuItem component={link.component} to={link.link} key={key}>
-                {link.linkName}
-              </MenuItem>
-            ))}
-          </Menu>
-        </Box>
-
-        <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
+  }
+  return (
+    <>
+      <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
+        <IconButton
+          size='large'
+          aria-label='nav-links'
+          aria-controls='menu-appbar'
+          aria-haspopup='true'
+          onClick={props.handleOpenMenu}
+          color='inherit'
+        >
+          <MenuIcon fontSize='large' />
+        </IconButton>
+        <Menu
+          id='menu-appbar'
+          anchorEl={props.anchorNav}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          open={Boolean(props.anchorNav)}
+          onClose={props.handleCloseMenu}
+          sx={{ mt: '40px' }}
+        >
           {navbarLinks.navLinks.map((link: any, key: number) => (
             <MenuItem component={link.component} to={link.link} key={key}>
               {link.linkName}
             </MenuItem>
           ))}
-        </Box>
-      </>
-    );
-  }
+        </Menu>
+      </Box>
+
+      <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
+        {navbarLinks.navLinks.map((link: any, key: number) => (
+          <MenuItem component={link.component} to={link.link} key={key}>
+            {link.linkName}
+          </MenuItem>
+        ))}
+      </Box>
+    </>
+  );
 }

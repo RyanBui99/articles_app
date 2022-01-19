@@ -3,11 +3,14 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import CloseIcon from '@mui/icons-material/Close';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import CloseIcon from '@mui/icons-material/Close';
 import {
   Box,
+  Typography,
   TextField,
   FormControl,
   FormControlLabel,
@@ -15,7 +18,6 @@ import {
   Radio,
   RadioGroup,
   IconButton,
-  DialogTitle,
 } from '@material-ui/core';
 import ICreateEditUser from '../../interfaces/ICreateEditUser';
 import { APIService } from '../../helpers/APIService';
@@ -26,12 +28,12 @@ import SnackbarComponent from '../SnackbarComponent';
  * @param props
  * @returns
  */
-export default function CreateUserModal(props: any) {
+export default function EditUserModal(props: any) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-  const [open, setOpen] = React.useState(false);
-  const [message, setMessage] = React.useState('');
-  const [severity, setSeverity] = React.useState('');
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [message, setMessage] = React.useState<string>('');
+  const [severity, setSeverity] = React.useState<string>('');
 
   const handleClick = () => {
     setOpen(true);
@@ -44,22 +46,10 @@ export default function CreateUserModal(props: any) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    const createUserData: ICreateEditUser = {
+    const createUserData = {
       email: data.get('username'),
-      password: data.get('password'),
       role: data.get('role'),
     };
-
-    try {
-      console.log(createUserData);
-      await APIService.register(createUserData);
-      setSeverity('success');
-      setMessage('User created successfully');
-      props.handleclose();
-    } catch (error: any) {
-      setMessage(error.response.data.message);
-      setSeverity('error');
-    }
   };
 
   return (
@@ -77,10 +67,8 @@ export default function CreateUserModal(props: any) {
         aria-labelledby='responsive-dialog-title'
         fullWidth
       >
-        <DialogActions
-          sx={{ display: 'flex', justifyContent: 'space-between' }}
-        >
-          <DialogTitle id='responsive-dialog-title'>Create new user</DialogTitle>
+        <DialogActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <DialogTitle id='responsive-dialog-title'>Edit user</DialogTitle>
           <IconButton
             edge='start'
             color='inherit'
@@ -108,20 +96,9 @@ export default function CreateUserModal(props: any) {
               name='username'
               autoComplete='username'
               autoFocus
+              value={props.user.username}
               variant='outlined'
             />
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              name='password'
-              label='Password'
-              type='password'
-              id='password'
-              autoComplete='current-password'
-              variant='outlined'
-            />
-
             <FormControl component='fieldset' margin='dense'>
               <FormLabel component='legend'>Roles</FormLabel>
               <RadioGroup row aria-label='roles' name='row-radio-buttons-group'>

@@ -22,4 +22,14 @@ export const APIService = {
     const response = await axios.get(`${URL}/api/admin/users`);
     return response;
   },
+
+  async updateUser(userId: string) {
+    const response = await axios.put(`${URL}/api/admin/updateUser/${userId}`);
+    return response;
+  },
+
+  async deleteUser(userId: string) {
+    const response = await axios.delete(`${URL}/api/admin/deleteUser/${userId}`);
+    return response;
+  },
 };
