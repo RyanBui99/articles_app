@@ -1,5 +1,6 @@
 import axios from 'axios';
 import ILoginRegister from '../interfaces/ILoginRegister';
+import ICreateEditUser from '../interfaces/ICreateEditUser';
 
 const URL = process.env.SERVER_ENDPOINT || 'https://localhost:5001';
 
@@ -12,8 +13,13 @@ export const APIService = {
     return response;
   },
 
-  async register(userCredentials: ILoginRegister) {
+  async register(userCredentials: ICreateEditUser) {
     const response = await axios.post(`${URL}/api/authentication/register`, userCredentials);
+    return response;
+  },
+
+  async getAllUsers() {
+    const response = await axios.get(`${URL}/api/admin/users`);
     return response;
   },
 };

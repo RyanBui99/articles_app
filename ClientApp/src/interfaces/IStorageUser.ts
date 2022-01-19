@@ -1,5 +1,5 @@
 export default interface IStorageUser {
   username: string;
-  userId: string;
+  id: string;
   role: string;
 }
