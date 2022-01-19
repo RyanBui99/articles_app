@@ -11,11 +11,12 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Avatar from '@material-ui/core/Avatar';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { Link } from 'react-router-dom';
 import NavbarComponent from '../../components/NavbarComponent';
 import CreateUserModal from '../../components/modals/CreateUserModal';
+import { useDispatch } from 'react-redux';
+import { useTypedSelector } from '../../hooks/useTypeSelector';
+import { getUsers } from '../../store/actionCreators/userCreator';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,47 +37,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const users = [
-  {
-    username: 'admin@admin.se',
-    role: 'admin',
-  },
-  {
-    username: 'admin@admin.se',
-    role: 'admin',
-  },
-  {
-    username: 'admin@admin.se',
-    role: 'admin',
-  },
-  {
-    username: 'admin@admin.se',
-    role: 'admin',
-  },
-  {
-    username: 'admin@admin.se',
-    role: 'admin',
-  },
-  {
-    username: 'admin@admin.se',
-    role: 'admin',
-  },
-  {
-    username: 'admin@admin.se',
-    role: 'admin',
-  },
-  {
-    username: 'admin@admin.se',
-    role: 'admin',
-  },
-  {
-    username: 'admin@admin.se',
-    role: 'admin',
-  },
-];
-
 export default function admin() {
   const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch()
+  const { users } = useTypedSelector((state) => state.users)
   const classes = useStyles();
 
   const handleClickOpen = () => {
@@ -86,6 +50,13 @@ export default function admin() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  React.useEffect(() => {
+    const fetchUsers = async () => {
+      await dispatch(getUsers())
+    }
+    fetchUsers()
+  }, [dispatch])
 
   return (
     <>
@@ -119,7 +90,7 @@ export default function admin() {
               <Table aria-label='simple table'>
                 <TableHead>
                   <TableRow>
-                    <TableCell align='left'>ID</TableCell>
+                    <TableCell align='center'>ID</TableCell>
                     <TableCell align='left'>Username</TableCell>
                     <TableCell align='left'>Role</TableCell>
                     <TableCell align='center'>Action</TableCell>
@@ -128,7 +99,7 @@ export default function admin() {
                 <TableBody>
                   {users.map((user, key) => (
                     <TableRow key={key}>
-                      <TableCell align='left'>{key}</TableCell>
+                      <TableCell align='center'>{user.id}</TableCell>
                       <TableCell align='left'>{user.username}</TableCell>
                       <TableCell align='left'>{user.role}</TableCell>
                       <TableCell align='center'>

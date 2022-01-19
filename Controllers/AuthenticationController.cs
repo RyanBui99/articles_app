@@ -10,7 +10,7 @@ namespace articles_app.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthenticationController :ControllerBase
+    public class AuthenticationController : ControllerBase
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -22,17 +22,9 @@ namespace articles_app.Controllers
             _roleManager = roleManager;
         }
 
-        [HttpGet]
-        [Route("userData")]
-        public IActionResult GetUsers()
-        {
-            var users = _userManager.Users.ToArray();
-            return Ok(users);
-        }
-
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] LoginRequestModel user)
+        public async Task<IActionResult> Register([FromBody] RegisterRequestModel user)
         {
             try
             {
@@ -58,7 +50,7 @@ namespace articles_app.Controllers
                             await _roleManager.CreateAsync(new IdentityRole() { Id = "vd376a8f-9eab-4bb9-9fca-30b01540f446", Name = "user" });
                         }
 
-                        await _userManager.AddToRoleAsync(newUser, "user");
+                        await _userManager.AddToRoleAsync(newUser, user.Role);
                         return Ok();
                     } else {
                         return BadRequest(new ResponseToClient { Message = "Unable to create user" });
