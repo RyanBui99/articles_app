@@ -32,7 +32,7 @@ export default function CreateUserModal(props: any) {
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState('');
-  const [severity, setSeverity] = React.useState('error');
+  const [severity, setSeverity] = React.useState('');
 
   const handleClick = () => {
     setOpen(true);
@@ -52,6 +52,7 @@ export default function CreateUserModal(props: any) {
     };
 
     try {
+      console.log(createUserData)
       await APIService.register(createUserData);
       setSeverity('success');
       setMessage('User created successfully');

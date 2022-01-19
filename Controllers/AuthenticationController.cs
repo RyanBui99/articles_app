@@ -24,7 +24,7 @@ namespace articles_app.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] LoginRequestModel user)
+        public async Task<IActionResult> Register([FromBody] RegisterRequestModel user)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace articles_app.Controllers
                             await _roleManager.CreateAsync(new IdentityRole() { Id = "vd376a8f-9eab-4bb9-9fca-30b01540f446", Name = "user" });
                         }
 
-                        await _userManager.AddToRoleAsync(newUser, "user");
+                        await _userManager.AddToRoleAsync(newUser, user.Role);
                         return Ok();
                     } else {
                         return BadRequest(new ResponseToClient { Message = "Unable to create user" });

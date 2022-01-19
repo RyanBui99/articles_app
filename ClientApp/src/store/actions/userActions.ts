@@ -5,6 +5,7 @@ export enum UserActionType {
   GET_USERS_PENDING = 'FETCH_USERS_PENDING',
   GET_USERS_SUCCESS = 'FETCH_USERS_SUCCESS',
   GET_USERS_ERROR = 'FETCH_USERS_ERROR',
+  ADD_USER_SUCCESS = 'ADD_USER_SUCCESS',
   ADD_USER = 'ADD_USER',
 }
 
@@ -22,13 +23,9 @@ interface getUsersError {
   payload: string;
 }
 
-interface addUser {
-  type: UserActionType.GET_USERS_ERROR;
-  payload: ICreateEditUser[];
-}
+// interface addUser {
+//   type: UserActionType.ADD_USER;
+//   payload: ICreateEditUser;
+// }
 
-export type UserActions =
-  | getUsersPending
-  | getUsersSuccess
-  | getUsersError
-  | addUser;
+export type UserActions = getUsersPending | getUsersSuccess | getUsersError;

@@ -3,6 +3,7 @@ import { Dispatch } from 'redux';
 import { APIService } from '../../helpers/APIService';
 import { UserActionType, UserActions } from '../actions/userActions';
 import ILoginRegister from '../../interfaces/ILoginRegister';
+import ICreateEditUser from '../../interfaces/ICreateEditUser';
 
 /**
  * Get all the users from server
@@ -29,7 +30,7 @@ export const getUsers = () => {
   };
 };
 
-// export const addUsers = (userCredentials: ILoginRegister) => {
+// export const addUsers = (userCredentials: ICreateEditUser) => {
 //   return async (dispatch: Dispatch<UserActions>) => {
 //     dispatch({
 //       type: UserActionType.ADD_USER,

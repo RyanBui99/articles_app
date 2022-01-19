@@ -30,7 +30,6 @@ export function userReducer(state: State = initialState, action: UserActions):St
       return {
         ...state,
         pending: false,
-        error: action.payload,
       };
     default:
       return state;
