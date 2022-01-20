@@ -3,12 +3,10 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
 
 export default function BlogPosts(props: any) {
-  
-
   return (
     <Card
       sx={{
@@ -17,7 +15,7 @@ export default function BlogPosts(props: any) {
         maxHeight: 390,
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
       }}
     >
       <CardMedia
@@ -35,7 +33,9 @@ export default function BlogPosts(props: any) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size='small'>Read full article</Button>
+        <Link to={`/blogPost/${props.blogPost.id}`} state={props.blogPost}>
+          READ FULL ARTICLE
+        </Link>
       </CardActions>
     </Card>
   );
