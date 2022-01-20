@@ -1,4 +1,3 @@
-import { type } from "os";
 import { combineReducers } from "redux";
 import { blogPostReducer } from "../reducers/blogPostReducer";
 import { userReducer } from '../reducers/userReducer';

@@ -1,5 +1,5 @@
 export default interface ICreateEditUser {
-    email: FormDataEntryValue  | null,
-    password: FormDataEntryValue  | null,
-    role: FormDataEntryValue  | null,
+    email: string | undefined,
+    password: string | undefined,
+    role: string | undefined,
 }

@@ -9,7 +9,7 @@ import Container from '@mui/material/Container';
 import ILoginRegister from '../../interfaces/ILoginRegister';
 import NavbarComponent from '../../components/NavbarComponent';
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import ILoginRegister from '../interfaces/ILoginRegister';
 import ICreateEditUser from '../interfaces/ICreateEditUser';
+import IStorageUser from '../interfaces/IStorageUser';
 
 const URL = process.env.SERVER_ENDPOINT || 'https://localhost:5001';
 
@@ -9,12 +10,18 @@ const URL = process.env.SERVER_ENDPOINT || 'https://localhost:5001';
  */
 export const APIService = {
   async login(userCredentials: ILoginRegister) {
-    const response = await axios.post(`${URL}/api/authentication/login`, userCredentials);
+    const response = await axios.post(
+      `${URL}/api/authentication/login`,
+      userCredentials
+    );
     return response;
   },
 
   async register(userCredentials: ICreateEditUser) {
-    const response = await axios.post(`${URL}/api/authentication/register`, userCredentials);
+    const response = await axios.post(
+      `${URL}/api/authentication/register`,
+      userCredentials
+    );
     return response;
   },
 
@@ -23,13 +30,18 @@ export const APIService = {
     return response;
   },
 
-  async updateUser(userId: string) {
-    const response = await axios.put(`${URL}/api/admin/updateUser/${userId}`);
+  async updateUser(userId: string, updatedCredentials: IStorageUser) {
+    const response = await axios.put(
+      `${URL}/api/admin/updateUser/${userId}`,
+      updatedCredentials
+    );
     return response;
   },
 
-  async deleteUser(userId: string) {
-    const response = await axios.delete(`${URL}/api/admin/deleteUser/${userId}`);
+  async deleteUser(userId: string | undefined) {
+    const response = await axios.delete(
+      `${URL}/api/admin/deleteUser/${userId}`
+    );
     return response;
   },
 
@@ -39,7 +51,9 @@ export const APIService = {
   },
 
   async deleteBlogPost(blogPostId: string) {
-    const response = await axios.delete(`${URL}/api/blogpost/delete/${blogPostId}`);
+    const response = await axios.delete(
+      `${URL}/api/blogpost/delete/${blogPostId}`
+    );
     return response;
   },
 };

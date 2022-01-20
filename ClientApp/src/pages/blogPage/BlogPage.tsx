@@ -16,7 +16,7 @@ export default function BlogPage() {
       await dispatch(getBlogPosts());
     };
     fetchBlogPosts();
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

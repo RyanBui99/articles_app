@@ -53,7 +53,7 @@ namespace articles_app.Controllers
                         await _userManager.AddToRoleAsync(newUser, user.Role);
                         return Ok();
                     } else {
-                        return BadRequest(new ResponseToClient { Message = "Unable to create user" });
+                        return BadRequest(new ResponseToClient { Message = "Password requieres 1 Uppercase and 1 non alphanumeric" });
                     }
                 }
                 return BadRequest(new ResponseToClient { Message = "Oops, something went wrong..." });

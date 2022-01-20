@@ -60,15 +60,17 @@ export default function DetailedBlogPostPage() {
               >
                 {blogPostData.header}
               </Typography>
+
               <CardActions>
-                <IconButton>
-                  <ModeEditOutlineOutlinedIcon />
+                <IconButton sx={{ padding: '0' }}>
+                  <ModeEditOutlineOutlinedIcon color='primary' />
                 </IconButton>
-                <IconButton onClick={deleteBlogPost}>
-                  <DeleteOutlinedIcon />
+                <IconButton onClick={deleteBlogPost} sx={{ padding: '0' }}>
+                  <DeleteOutlinedIcon color='error' />
                 </IconButton>
               </CardActions>
             </CardActions>
+
             <Typography variant='body2' color='text.secondary'>
               {blogPostData.content}
             </Typography>

@@ -20,6 +20,8 @@ import {
 import ICreateEditUser from '../../interfaces/ICreateEditUser';
 import { APIService } from '../../helpers/APIService';
 import SnackbarComponent from '../SnackbarComponent';
+import { useDispatch } from 'react-redux';
+import { addUsers } from '../../store/actionCreators/userCreator';
 
 /**
  * Modal for creating users, restricted to admin ONLY!!
@@ -28,10 +30,11 @@ import SnackbarComponent from '../SnackbarComponent';
  */
 export default function CreateUserModal(props: any) {
   const theme = useTheme();
+  const dispatch = useDispatch();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState('');
-  const [severity, setSeverity] = React.useState('');
+  const [severity, setSeverity] = React.useState('success');
 
   const handleClick = () => {
     setOpen(true);
@@ -45,14 +48,13 @@ export default function CreateUserModal(props: any) {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const createUserData: ICreateEditUser = {
-      email: data.get('username'),
-      password: data.get('password'),
-      role: data.get('role'),
+      email: data.get('username')!.toString(),
+      password: data.get('password')!.toString(),
+      role: data.get('role')!.toString(),
     };
 
     try {
-      console.log(createUserData);
-      await APIService.register(createUserData);
+      await dispatch(addUsers(createUserData));
       setSeverity('success');
       setMessage('User created successfully');
       props.handleclose();
@@ -80,7 +82,9 @@ export default function CreateUserModal(props: any) {
         <DialogActions
           sx={{ display: 'flex', justifyContent: 'space-between' }}
         >
-          <DialogTitle id='responsive-dialog-title'>Create new user</DialogTitle>
+          <DialogTitle id='responsive-dialog-title'>
+            Create new user
+          </DialogTitle>
           <IconButton
             edge='start'
             color='inherit'

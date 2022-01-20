@@ -22,6 +22,9 @@ import {
 import ICreateEditUser from '../../interfaces/ICreateEditUser';
 import { APIService } from '../../helpers/APIService';
 import SnackbarComponent from '../SnackbarComponent';
+import IStorageUser from '../../interfaces/IStorageUser';
+import { editUser } from '../../store/actionCreators/userCreator';
+import { useDispatch } from 'react-redux';
 
 /**
  * Modal for creating users, restricted to admin ONLY!!
@@ -30,6 +33,7 @@ import SnackbarComponent from '../SnackbarComponent';
  */
 export default function EditUserModal(props: any) {
   const theme = useTheme();
+  const dispatch = useDispatch();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
   const [open, setOpen] = React.useState<boolean>(false);
   const [message, setMessage] = React.useState<string>('');
@@ -46,10 +50,21 @@ export default function EditUserModal(props: any) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    const createUserData = {
-      email: data.get('username'),
-      role: data.get('role'),
+    const createUserData: IStorageUser = {
+      username: data.get('username')!.toString(),
+      role: data.get('role')!.toString(),
+      id: props.user.id
     };
+
+    try {
+      await dispatch(editUser(props.user.id, createUserData))
+      setSeverity('success');
+      setMessage('User edited successfully');
+      props.handleclose();
+    } catch (error: any) {
+      setMessage(error.response.data.message);
+      setSeverity('error');
+    }
   };
 
   return (
@@ -96,7 +111,7 @@ export default function EditUserModal(props: any) {
               name='username'
               autoComplete='username'
               autoFocus
-              value={props.user.username}
+              defaultValue={props.user.username}
               variant='outlined'
             />
             <FormControl component='fieldset' margin='dense'>
@@ -120,7 +135,7 @@ export default function EditUserModal(props: any) {
             </FormControl>
             <DialogActions>
               <Button onClick={handleClick} autoFocus type='submit'>
-                Create
+                Confirm edit
               </Button>
             </DialogActions>
           </Box>

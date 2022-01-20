@@ -46,10 +46,7 @@ export default function admin() {
   };
 
   React.useEffect(() => {
-    const fetchUsers = async () => {
-      await dispatch(getUsers());
-    };
-    fetchUsers();
+    dispatch(getUsers());
   }, [dispatch]);
 
   return (

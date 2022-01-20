@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -10,8 +9,6 @@ import ILoginRegister from '../../interfaces/ILoginRegister';
 import NavbarComponent from '../../components/NavbarComponent';
 import { useNavigate } from 'react-router-dom';
 import { APIService } from '../../helpers/APIService';
-import { Snackbar, SnackbarOrigin } from '@material-ui/core';
-import { Alert } from '@mui/material';
 import Authentication from '../../helpers/Authentication';
 import SnackbarComponent from '../../components/SnackbarComponent';
 
@@ -31,8 +28,8 @@ export default function LoginPage() {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const loginData: ILoginRegister = {
-      email: data.get('username'),
-      password: data.get('password'),
+      email: data.get('username')!.toString(),
+      password: data.get('password')!.toString(),
     };
     try {
       const response = await APIService.login(loginData);
