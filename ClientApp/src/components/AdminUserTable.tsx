@@ -13,9 +13,12 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { APIService } from '../helpers/APIService';
 import IStorageUser from '../interfaces/IStorageUser';
 import EditUserModal from './modals/EditUserModal';
+import { useDispatch } from 'react-redux';
+import { deleteUser } from '../store/actionCreators/userCreator';
 
 export default function AdminUserTable(props: any) {
   const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch();
   const [clickedUser, setClickedUser] = React.useState<IStorageUser>({
     username: '',
     id: '',
@@ -62,7 +65,7 @@ export default function AdminUserTable(props: any) {
                   </Button>
                   <Button
                     color='secondary'
-                    onClick={async () => await APIService.deleteUser(user.id)}
+                    onClick={() => dispatch(deleteUser(user.id!))}
                   >
                     Delete
                   </Button>

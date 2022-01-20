@@ -46,6 +46,26 @@ namespace articles_app.Controllers
             return Ok(list);
         }
 
+        [HttpGet]
+        [Route("getPost/{id}")]
+        public async Task<IActionResult> GetSingleBlogPost([FromRoute] string id)
+        {
+            var blogPost = await _context.BlogPosts.FindAsync(id);
+            if (blogPost == null) return BadRequest(new ResponseToClient
+            { Message = "Blog post does not exist" });
+
+            blogPost = new BlogPostModel {
+                Id = blogPost.Id,
+                Header = blogPost.Header,
+                Content = blogPost.Content,
+                Preview = blogPost.Preview,
+                ImageName = blogPost.ImageName,
+                ImageSrc = string.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, blogPost.ImageName)
+            };
+
+            return Ok(blogPost);
+        }
+
         [HttpDelete]
         [Route("delete/{id}")]
         public async Task<IActionResult> deleteBlogPost([FromRoute] string id)

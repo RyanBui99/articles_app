@@ -33,7 +33,7 @@ export default function BlogPosts(props: any) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Link to={`/blogPost/${props.blogPost.id}`} state={props.blogPost}>
+        <Link to={`/blogPost/${props.blogPost.id}`} state={props.blogPost.id}>
           READ FULL ARTICLE
         </Link>
       </CardActions>

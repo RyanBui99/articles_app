@@ -38,7 +38,7 @@ export const APIService = {
     return response;
   },
 
-  async deleteUser(userId: string | undefined) {
+  async deleteUser(userId: string) {
     const response = await axios.delete(
       `${URL}/api/admin/deleteUser/${userId}`
     );
@@ -47,6 +47,13 @@ export const APIService = {
 
   async getAllPosts() {
     const response = await axios.get(`${URL}/api/blogpost/getPosts`);
+    return response;
+  },
+
+  async getClickedPost(blogPostId: string) {
+    const response = await axios.get(
+      `${URL}/api/blogpost/getPost/${blogPostId}`
+    );
     return response;
   },
 

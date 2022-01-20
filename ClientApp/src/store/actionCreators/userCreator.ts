@@ -74,3 +74,25 @@ export const editUser = (userId: string, updatedUser: IStorageUser) => {
     }
   };
 };
+
+export const deleteUser = (userId: string) => {
+  return async (dispatch: Dispatch<UserActions>) => {
+    dispatch({
+      type: UserActionType.DELETE_USER_PENDING,
+    });
+    try {
+      await APIService.deleteUser(userId);
+      const { data } = await APIService.getAllUsers();
+      dispatch({
+        type: UserActionType.DELETE_USER_SUCCESS,
+        payload: data,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: UserActionType.DELETE_USER_ERROR,
+        payload: error.message,
+      });
+      throw error
+    }
+  };
+};

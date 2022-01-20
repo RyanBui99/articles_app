@@ -11,6 +11,9 @@ export enum UserActionType {
   UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS',
   UPDATE_USER_PENDING = 'UPDATE_USER_PENDING',
   UPDATE_USER_ERROR = 'UPDATE_USER_ERROR',
+  DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS',
+  DELETE_USER_PENDING = 'DELETE_USER_PENDING',
+  DELETE_USER_ERROR = 'DELETE_USER_ERROR',
 }
 
 interface getUsersPending {
@@ -55,6 +58,20 @@ interface updateUserError {
   payload: string;
 }
 
+interface deleteUserPending {
+  type: UserActionType.DELETE_USER_PENDING;
+}
+
+interface deleteUserSuccess {
+  type: UserActionType.DELETE_USER_SUCCESS;
+  payload: IStorageUser[];
+}
+
+interface deleteUserError {
+  type: UserActionType.DELETE_USER_ERROR;
+  payload: string;
+}
+
 export type UserActions =
   | getUsersPending
   | getUsersSuccess
@@ -64,4 +81,7 @@ export type UserActions =
   | addUserError
   | updateUserPending
   | updateUserSuccess
-  | updateUserError;
+  | updateUserError
+  | deleteUserPending
+  | deleteUserSuccess
+  | deleteUserError

@@ -18,6 +18,7 @@ export function userReducer(state: State = initialState, action: UserActions):St
     case UserActionType.GET_USERS_PENDING:
     case UserActionType.ADD_USER_PENDING:
     case UserActionType.UPDATE_USER_PENDING:
+    case UserActionType.DELETE_USER_PENDING:
       return {
         ...state,
         pending: true,
@@ -25,6 +26,7 @@ export function userReducer(state: State = initialState, action: UserActions):St
     case UserActionType.GET_USERS_SUCCESS:
     case UserActionType.ADD_USER_SUCCESS:
     case UserActionType.UPDATE_USER_SUCCESS:
+    case UserActionType.DELETE_USER_SUCCESS:
       return {
         ...state,
         pending: false,
@@ -33,6 +35,7 @@ export function userReducer(state: State = initialState, action: UserActions):St
     case UserActionType.GET_USERS_ERROR:
     case UserActionType.ADD_USER_ERROR:
     case UserActionType.UPDATE_USER_ERROR:
+    case UserActionType.DELETE_USER_ERROR:
       return {
         ...state,
         pending: false,

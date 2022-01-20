@@ -12,13 +12,22 @@ import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutl
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import IStorageBlogPosts from '../../interfaces/IStorageBlogPosts';
 import { APIService } from '../../helpers/APIService';
+import { useDispatch } from 'react-redux';
+import { useTypedSelector } from '../../hooks/useTypeSelector';
+import { getClickedBlogPost } from '../../store/actionCreators/blogPostCreator';
 
 export default function DetailedBlogPostPage() {
   const navigate = useNavigate();
-  const blogPostData: any = useLocation().state;
+  const dispatch = useDispatch();
+  const { blogPost } = useTypedSelector((state) => state.blogPosts);
+  const blogPostId: any = useLocation().state;
+
+  React.useEffect(() => {
+    dispatch(getClickedBlogPost(blogPostId))
+  }, [dispatch])
 
   const deleteBlogPost = async () => {
-    await APIService.deleteBlogPost(blogPostData.id);
+    await APIService.deleteBlogPost(blogPostId);
     navigate('/');
   };
 
@@ -41,8 +50,8 @@ export default function DetailedBlogPostPage() {
           <CardMedia
             component='img'
             height='280'
-            src={blogPostData.imageSrc}
-            alt={blogPostData.imageName}
+            src={blogPost.imageSrc}
+            alt={blogPost.imageName}
           />
           <CardContent>
             <CardActions
@@ -58,7 +67,7 @@ export default function DetailedBlogPostPage() {
                 component='div'
                 sx={{ display: 'flex', justifyContent: 'center' }}
               >
-                {blogPostData.header}
+                {blogPost.header}
               </Typography>
 
               <CardActions>
@@ -72,7 +81,7 @@ export default function DetailedBlogPostPage() {
             </CardActions>
 
             <Typography variant='body2' color='text.secondary'>
-              {blogPostData.content}
+              {blogPost.content}
             </Typography>
           </CardContent>
         </Card>

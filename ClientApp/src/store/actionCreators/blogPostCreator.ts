@@ -13,7 +13,6 @@ export const getBlogPosts = () => {
     });
     try {
       const { data } = await APIService.getAllPosts();
-      console.log(data)
       dispatch({
         type: BlogPostActionTypes.GET_BLOGPOSTS_SUCCESS,
         payload: data,
@@ -21,6 +20,27 @@ export const getBlogPosts = () => {
     } catch (err: any) {
       dispatch({
         type: BlogPostActionTypes.GET_BLOGPOSTS_ERROR,
+        payload: err.message,
+      });
+    }
+  };
+};
+
+export const getClickedBlogPost = (blogPostId: string) => {
+  return async (dispatch: Dispatch<BlogPostActions>) => {
+    dispatch({
+      type: BlogPostActionTypes.GET_CLICKED_BLOGPOST_PENDING,
+    });
+    try {
+      const { data } = await APIService.getClickedPost(blogPostId);
+      console.log(data)
+      dispatch({
+        type: BlogPostActionTypes.GET_CLICKED_BLOGPOST_SUCCESS,
+        payload: data,
+      });
+    } catch (err: any) {
+      dispatch({
+        type: BlogPostActionTypes.GET_CLICKED_BLOGPOST_ERROR,
         payload: err.message,
       });
     }

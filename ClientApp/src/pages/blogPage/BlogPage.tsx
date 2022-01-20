@@ -12,10 +12,7 @@ export default function BlogPage() {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    const fetchBlogPosts = async () => {
-      await dispatch(getBlogPosts());
-    };
-    fetchBlogPosts();
+    dispatch(getBlogPosts());
   }, [dispatch]);
 
   return (
@@ -30,7 +27,7 @@ export default function BlogPage() {
       >
         {blogPosts.map((blogPost: IStorageBlogPosts, key: number) => (
           <Grid key={key} item>
-            <BlogPosts blogPost={blogPost}/>
+            <BlogPosts blogPost={blogPost} />
           </Grid>
         ))}
       </Grid>
