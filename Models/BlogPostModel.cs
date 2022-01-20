@@ -10,6 +10,7 @@ namespace articles_app.Models
         public string ImageName { get; set; }
         public string Header { get; set; }
         public string Content { get; set; }
+        public string Preview { get; set; }
         [Key]
         public string Id { get; set; }
         [NotMapped]

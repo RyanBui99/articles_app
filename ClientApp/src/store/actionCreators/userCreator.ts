@@ -1,9 +1,6 @@
-import axios from 'axios';
 import { Dispatch } from 'redux';
 import { APIService } from '../../helpers/APIService';
 import { UserActionType, UserActions } from '../actions/userActions';
-import ILoginRegister from '../../interfaces/ILoginRegister';
-import ICreateEditUser from '../../interfaces/ICreateEditUser';
 
 /**
  * Get all the users from server

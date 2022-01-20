@@ -1,5 +1,4 @@
 import IStorageUser from '../../interfaces/IStorageUser';
-import ICreateEditUser from '../../interfaces/ICreateEditUser';
 
 export enum UserActionType {
   GET_USERS_PENDING = 'FETCH_USERS_PENDING',

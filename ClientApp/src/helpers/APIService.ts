@@ -32,4 +32,9 @@ export const APIService = {
     const response = await axios.delete(`${URL}/api/admin/deleteUser/${userId}`);
     return response;
   },
+
+  async GetAllPosts() {
+    const response = await axios.get(`${URL}/api/blogpost/getPosts`);
+    return response;
+  },
 };

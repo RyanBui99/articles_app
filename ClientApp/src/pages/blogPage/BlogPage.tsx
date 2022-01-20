@@ -1,16 +1,36 @@
 import React from 'react';
-import Articles from '../../components/Articles';
 import NavbarComponent from '../../components/NavbarComponent';
 import Grid from '@mui/material/Grid';
+import { useDispatch } from 'react-redux';
+import { useTypedSelector } from '../../hooks/useTypeSelector';
+import { getBlogPosts } from '../../store/actionCreators/blogPostCreator';
+import IStorageBlogPosts from '../../interfaces/IStorageBlogPosts';
+import BlogPosts from '../../components/BlogPosts';
 
 export default function BlogPage() {
+  const { blogPosts } = useTypedSelector((state) => state.blogPosts);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    const fetchBlogPosts = async () => {
+      await dispatch(getBlogPosts());
+    };
+    fetchBlogPosts();
+  }, []);
+
   return (
     <>
       <NavbarComponent />
-      <Grid justifyContent='center' sx={{ flexGrow: 1 }} container spacing={3} marginTop='2em'>
-        {[0, 1, 2, 3].map((value: number) => (
-          <Grid key={value} item>
-            <Articles />
+      <Grid
+        justifyContent='center'
+        sx={{ flexGrow: 1 }}
+        container
+        spacing={3}
+        marginTop='2em'
+      >
+        {blogPosts.map((blogPost: IStorageBlogPosts, key: number) => (
+          <Grid key={key} item>
+            <BlogPosts blogPost={blogPost}/>
           </Grid>
         ))}
       </Grid>
