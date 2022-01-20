@@ -12,7 +12,7 @@ export const getBlogPosts = () => {
       type: BlogPostActionTypes.GET_BLOGPOSTS_PENDING,
     });
     try {
-      const { data } = await APIService.GetAllPosts();
+      const { data } = await APIService.getAllPosts();
       console.log(data)
       dispatch({
         type: BlogPostActionTypes.GET_BLOGPOSTS_SUCCESS,

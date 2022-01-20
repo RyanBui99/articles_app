@@ -46,13 +46,28 @@ namespace articles_app.Controllers
             return Ok(list);
         }
 
+        [HttpDelete]
+        [Route("delete/{id}")]
+        public async Task<IActionResult> deleteBlogPost([FromRoute] string id)
+        {
+            var blogPostToDelete = await _context.BlogPosts.FindAsync(id);
+
+            if (blogPostToDelete == null) return BadRequest(new ResponseToClient
+            { Message="Blog post does not exist"});
+
+            DeleteImage(blogPostToDelete.ImageName);
+            _context.BlogPosts.Remove(blogPostToDelete);
+            await _context.SaveChangesAsync();
+            return Ok(new ResponseToClient { Message="Blog post delete successfully"});
+        }
+
         [HttpPost]
         [Route("createPost")]
         public async Task<IActionResult> AddBlogPost([FromForm] BlogPostModel blogPost)
         {
             blogPost.ImageName = await SaveImage(blogPost.ImageFile);
             blogPost.Id = Guid.NewGuid().ToString();
-            blogPost.Preview = createPreview(blogPost.Content);
+            blogPost.Preview = CreatePreview(blogPost.Content);
             _context.BlogPosts.Add(blogPost);
             await _context.SaveChangesAsync();
             return Ok(new ResponseToClient { Message = "Image" });
@@ -82,11 +97,23 @@ namespace articles_app.Controllers
         /// <param name="content"></param>
         /// <returns></returns>
         [NonAction]
-        private string createPreview(string content)
+        private string CreatePreview(string content)
         {
             var preview = content.Substring(0, 185);
             preview += "....";
             return preview;
+        }
+
+        /// <summary>
+        /// When user deletes a blog post, delete connecting image from Images folder
+        /// </summary>
+        /// <param name="imageName"></param>
+        [NonAction]
+        private void DeleteImage(string imageName)
+        {
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", imageName);
+            if (System.IO.File.Exists(imagePath))
+                System.IO.File.Delete(imagePath);
         }
     }
 }

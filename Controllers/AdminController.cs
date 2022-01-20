@@ -71,6 +71,7 @@ namespace articles_app.Controllers
             return Ok(new ResponseToClient { Message = "User successfully deleted" });
         }
 
+        [NonAction]
         private List<Users> RemoveLoggedInAdminFromList(List<Users> UserList)
         {
             var originalAdminId = "a18be9c0-aa65-4af8-bd17-00bd9344e575";

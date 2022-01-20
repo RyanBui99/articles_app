@@ -5,15 +5,22 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import NavbarComponent from '../../components/NavbarComponent';
 import IconButton from '@mui/material/IconButton';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import IStorageBlogPosts from '../../interfaces/IStorageBlogPosts';
+import { APIService } from '../../helpers/APIService';
 
 export default function DetailedBlogPostPage() {
+  const navigate = useNavigate();
   const blogPostData: any = useLocation().state;
+
+  const deleteBlogPost = async () => {
+    await APIService.deleteBlogPost(blogPostData.id);
+    navigate('/');
+  };
 
   return (
     <>
@@ -57,7 +64,7 @@ export default function DetailedBlogPostPage() {
                 <IconButton>
                   <ModeEditOutlineOutlinedIcon />
                 </IconButton>
-                <IconButton>
+                <IconButton onClick={deleteBlogPost}>
                   <DeleteOutlinedIcon />
                 </IconButton>
               </CardActions>

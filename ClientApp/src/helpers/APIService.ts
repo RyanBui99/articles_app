@@ -33,8 +33,13 @@ export const APIService = {
     return response;
   },
 
-  async GetAllPosts() {
+  async getAllPosts() {
     const response = await axios.get(`${URL}/api/blogpost/getPosts`);
+    return response;
+  },
+
+  async deleteBlogPost(blogPostId: string) {
+    const response = await axios.delete(`${URL}/api/blogpost/delete/${blogPostId}`);
     return response;
   },
 };
