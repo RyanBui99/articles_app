@@ -69,7 +69,7 @@ export default function DetailedBlogPostPage() {
               >
                 {blogPost.header}
               </Typography>
-
+              {}
               <CardActions>
                 <IconButton sx={{ padding: '0' }}>
                   <ModeEditOutlineOutlinedIcon color='primary' />
