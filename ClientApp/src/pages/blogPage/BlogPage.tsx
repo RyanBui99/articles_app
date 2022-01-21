@@ -20,7 +20,7 @@ export default function BlogPage() {
       <NavbarComponent />
       <Grid
         justifyContent='center'
-        sx={{ flexGrow: 1 }}
+        sx={{ flexGrow: 2 }}
         container
         spacing={3}
         marginTop='2em'

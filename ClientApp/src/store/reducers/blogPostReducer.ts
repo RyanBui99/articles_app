@@ -3,6 +3,7 @@ import {
   BlogPostActionTypes,
 } from '../actions/blogPostActions';
 import IStorageBlogPosts from '../../interfaces/IStorageBlogPosts';
+import { ICreateBlogPost } from '../../interfaces/ICreateBlogPost';
 
 interface State {
   pending: boolean;
@@ -14,14 +15,7 @@ interface State {
 const initialState = {
   pending: false,
   blogPosts: [],
-  blogPost: {
-    imageSrc: '',
-    imageName: '',
-    header: '',
-    content: '',
-    id: '',
-    preview: '',
-  },
+  blogPost: <IStorageBlogPosts>{},
   error: null,
 };
 
@@ -32,6 +26,7 @@ export function blogPostReducer(
   switch (action.type) {
     case BlogPostActionTypes.GET_BLOGPOSTS_PENDING:
     case BlogPostActionTypes.GET_CLICKED_BLOGPOST_PENDING:
+    case BlogPostActionTypes.ADD_BLOGPOST_PENDING:
       return {
         ...state,
         pending: true,
@@ -48,8 +43,15 @@ export function blogPostReducer(
         pending: false,
         blogPost: action.payload,
       };
+    case BlogPostActionTypes.ADD_BLOGPOST_SUCCESS:
+      return {
+        ...state,
+        pending: false,
+        blogPosts: action.payload,
+      };
     case BlogPostActionTypes.GET_BLOGPOSTS_ERROR:
     case BlogPostActionTypes.GET_CLICKED_BLOGPOST_ERROR:
+    case BlogPostActionTypes.ADD_CLICKED_BLOGPOST_ERROR:
       return {
         ...state,
         pending: false,
@@ -58,10 +60,3 @@ export function blogPostReducer(
       return state;
   }
 }
-
-// blogPost: {imageSrc: '',
-// imageName: '',
-// header: '',
-// content: '',
-// id: '',
-// preview: ''},

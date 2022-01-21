@@ -71,22 +71,13 @@ namespace articles_app.Controllers
         public async Task<IActionResult> EditBlogPost([FromRoute] string id, [FromBody] BlogPostModel editedPost)
         {
             var blogPost = await _context.BlogPosts.FindAsync(id);
-            if (blogPost == null)
-            {
-                return BadRequest(new ResponseToClient { Message = "Blog post does not exist" });
-            } else
-            {
-                blogPost.Header = editedPost.Header;
-                if (editedPost.Content == null) {
-                    await _context.SaveChangesAsync();
-                    return Ok(blogPost);
-                }
+            if (blogPost == null) return BadRequest(new ResponseToClient { Message = "Blog post does not exist" });
 
-                blogPost.Content = editedPost.Content;
-                blogPost.Preview = CreatePreview(editedPost.Content);
-                await _context.SaveChangesAsync();
-                return Ok(blogPost);
-            }
+            blogPost.Header = editedPost.Header;
+            blogPost.Content = editedPost.Content;
+            blogPost.Preview = CreatePreview(editedPost.Content);
+            await _context.SaveChangesAsync();
+            return Ok(blogPost);
         }
 
         [HttpDelete]
@@ -113,7 +104,7 @@ namespace articles_app.Controllers
             blogPost.Preview = CreatePreview(blogPost.Content);
             _context.BlogPosts.Add(blogPost);
             await _context.SaveChangesAsync();
-            return Ok(new ResponseToClient { Message = "Image" });
+            return Ok(blogPost);
         }
 
         /// <summary>

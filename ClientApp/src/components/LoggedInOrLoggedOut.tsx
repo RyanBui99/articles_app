@@ -10,10 +10,20 @@ import Authentication from '../helpers/Authentication';
 import { navbarLinks } from '../constants/navbarLinks';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@material-ui/core';
+import CreateBlogPostModal from './modals/CreateBlogPostModal';
 
 export default function LoggedInOrLoggedOut(props: any) {
   const user = Authentication.getUser();
   const navigate = useNavigate();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const logout = () => {
     Authentication.logoutUser();
@@ -59,11 +69,11 @@ export default function LoggedInOrLoggedOut(props: any) {
           open={Boolean(props.anchorNav)} //anchorElUser
           onClose={props.handleCloseMenu}
         >
+          <MenuItem onClick={handleClickOpen}>Write a post</MenuItem>
           <AdminOrUser />
-          <MenuItem onClick={logout}>
-            Log out
-          </MenuItem>
+          <MenuItem onClick={logout}>Log out</MenuItem>
         </Menu>
+        <CreateBlogPostModal handleclose={handleClose} open={open} />
       </Box>
     );
   }

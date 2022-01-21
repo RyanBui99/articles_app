@@ -2,7 +2,9 @@ import axios from 'axios';
 import ILoginRegister from '../interfaces/ILoginRegister';
 import ICreateEditUser from '../interfaces/ICreateEditUser';
 import IStorageUser from '../interfaces/IStorageUser';
+import { ICreateBlogPost } from '../interfaces/ICreateBlogPost';
 
+// const URL = process.env.SERVER_ENDPOINT || 'https://localhost:44342';
 const URL = process.env.SERVER_ENDPOINT || 'https://localhost:5001';
 
 /**
@@ -54,6 +56,21 @@ export const APIService = {
     const response = await axios.get(
       `${URL}/api/blogpost/getPost/${blogPostId}`
     );
+    return response;
+  },
+
+  async createNewPost(blogPost: ICreateBlogPost) {
+    const blogPostAsFormData = new FormData();
+    blogPostAsFormData.append('imageFile', blogPost.imageFile as any);
+    blogPostAsFormData.append('header', blogPost.header);
+    blogPostAsFormData.append('content', blogPost.content);
+
+    const response = await axios.post(
+      `${URL}/api/blogpost/createPost`,
+      blogPostAsFormData,
+      { headers: { 'Content-Type': 'multipart/form-data' } }
+    );
+    console.log(response);
     return response;
   },
 

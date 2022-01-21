@@ -1,6 +1,7 @@
 import { Dispatch } from 'redux';
 import { APIService } from '../../helpers/APIService';
 import { BlogPostActions, BlogPostActionTypes } from '../actions/blogPostActions';
+import { ICreateBlogPost } from '../../interfaces/ICreateBlogPost';
 
 /**
  * Get all the blosPosts from server
@@ -41,6 +42,27 @@ export const getClickedBlogPost = (blogPostId: string) => {
     } catch (err: any) {
       dispatch({
         type: BlogPostActionTypes.GET_CLICKED_BLOGPOST_ERROR,
+        payload: err.message,
+      });
+    }
+  };
+};
+
+export const createNewPost = (blogPost: ICreateBlogPost) => {
+  return async (dispatch: Dispatch<BlogPostActions>) => {
+    dispatch({
+      type: BlogPostActionTypes.ADD_BLOGPOST_PENDING,
+    });
+    try {
+      await APIService.createNewPost(blogPost);
+      const { data } = await APIService.getAllPosts()
+      dispatch({
+        type: BlogPostActionTypes.ADD_BLOGPOST_SUCCESS,
+        payload: data,
+      });
+    } catch (err: any) {
+      dispatch({
+        type: BlogPostActionTypes.ADD_CLICKED_BLOGPOST_ERROR,
         payload: err.message,
       });
     }

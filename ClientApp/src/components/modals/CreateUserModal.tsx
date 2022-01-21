@@ -44,7 +44,7 @@ export default function CreateUserModal(props: any) {
     setOpen(false);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const createUserData: ICreateEditUser = {
@@ -54,7 +54,7 @@ export default function CreateUserModal(props: any) {
     };
 
     try {
-      await dispatch(addUsers(createUserData));
+      dispatch(addUsers(createUserData));
       setSeverity('success');
       setMessage('User created successfully');
       props.handleclose();
