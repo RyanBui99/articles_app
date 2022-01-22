@@ -1,5 +1,4 @@
 import React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -16,6 +15,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState('');
+  const [severity, setSeverity] = React.useState('');
 
   const handleClick = () => {
     setOpen(true);
@@ -35,9 +35,10 @@ export default function LoginPage() {
       const response = await APIService.login(loginData);
       const { username, id, role } = response.data;
       Authentication.setUser({ username, id, role });
+      setSeverity('success')
       navigate('/');
     } catch (error: any) {
-      console.error(error.response.data.message);
+      setSeverity('error')
       setMessage(error.response.data.message);
     }
   };
@@ -60,7 +61,7 @@ export default function LoginPage() {
           open={open}
           handleClose={handleClose}
           message={message}
-          severity='error'
+          severity={severity}
         />
         <Box
           sx={{
