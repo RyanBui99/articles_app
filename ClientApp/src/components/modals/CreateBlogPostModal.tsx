@@ -17,11 +17,10 @@ import { styled } from '@mui/material/styles';
 import { ICreateBlogPost } from '../../interfaces/ICreateBlogPost';
 import { createNewPost } from '../../store/actionCreators/blogPostCreator';
 
-const Input = styled('input')({
-  display: 'none',
-});
-
 export default function CreateBlogPostModal(props: any) {
+  const Input = styled('input')({
+    display: 'none',
+  });
   const theme = useTheme();
   const dispatch = useDispatch();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -39,7 +38,8 @@ export default function CreateBlogPostModal(props: any) {
     setOpen(false);
   };
 
-  const selectedFile = (e: any) => {
+  const selectedFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
     const imageUrl = URL.createObjectURL(e.target.files[0]);
     setImage(imageUrl);
     setImageToServer(e.target.files[0]);
@@ -53,9 +53,8 @@ export default function CreateBlogPostModal(props: any) {
       content: data.get('content')!.toString(),
       imageFile: imageToServer,
     };
-    console.log(createBlogData)
     try {
-      dispatch(createNewPost(createBlogData))
+      dispatch(createNewPost(createBlogData));
       setSeverity('success');
       setMessage('Your post is now published!');
       props.handleclose();

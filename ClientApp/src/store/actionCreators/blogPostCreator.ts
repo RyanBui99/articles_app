@@ -65,6 +65,7 @@ export const createNewPost = (blogPost: ICreateBlogPost) => {
         type: BlogPostActionTypes.ADD_CLICKED_BLOGPOST_ERROR,
         payload: err.message,
       });
+      throw err
     }
   };
 };

@@ -23,8 +23,8 @@ export default function DetailedBlogPostPage() {
   const blogPostId: any = useLocation().state;
 
   React.useEffect(() => {
-    dispatch(getClickedBlogPost(blogPostId))
-  }, [dispatch])
+    dispatch(getClickedBlogPost(blogPostId));
+  }, [dispatch]);
 
   const deleteBlogPost = async () => {
     await APIService.deleteBlogPost(blogPostId);
@@ -69,7 +69,6 @@ export default function DetailedBlogPostPage() {
               >
                 {blogPost.header}
               </Typography>
-              {}
               <CardActions>
                 <IconButton sx={{ padding: '0' }}>
                   <ModeEditOutlineOutlinedIcon color='primary' />

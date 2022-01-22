@@ -53,11 +53,11 @@ export default function EditUserModal(props: any) {
     const createUserData: IStorageUser = {
       username: data.get('username')!.toString(),
       role: data.get('role')!.toString(),
-      id: props.user.id
+      id: props.user.id,
     };
 
     try {
-      await dispatch(editUser(props.user.id, createUserData))
+      await dispatch(editUser(props.user.id, createUserData));
       setSeverity('success');
       setMessage('User edited successfully');
       props.handleclose();
@@ -82,7 +82,9 @@ export default function EditUserModal(props: any) {
         aria-labelledby='responsive-dialog-title'
         fullWidth
       >
-        <DialogActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <DialogActions
+          sx={{ display: 'flex', justifyContent: 'space-between' }}
+        >
           <DialogTitle id='responsive-dialog-title'>Edit user</DialogTitle>
           <IconButton
             edge='start'

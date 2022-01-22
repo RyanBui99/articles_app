@@ -76,51 +76,52 @@ export default function LoggedInOrLoggedOut(props: any) {
         <CreateBlogPostModal handleclose={handleClose} open={open} />
       </Box>
     );
-  }
-  return (
-    <>
-      <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
-        <IconButton
-          size='large'
-          aria-label='nav-links'
-          aria-controls='menu-appbar'
-          aria-haspopup='true'
-          onClick={props.handleOpenMenu}
-          color='inherit'
-        >
-          <MenuIcon fontSize='large' />
-        </IconButton>
-        <Menu
-          id='menu-appbar'
-          anchorEl={props.anchorNav}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          open={Boolean(props.anchorNav)}
-          onClose={props.handleCloseMenu}
-          sx={{ mt: '40px' }}
-        >
+  } else {
+    return (
+      <>
+        <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
+          <IconButton
+            size='large'
+            aria-label='nav-links'
+            aria-controls='menu-appbar'
+            aria-haspopup='true'
+            onClick={props.handleOpenMenu}
+            color='inherit'
+          >
+            <MenuIcon fontSize='large' />
+          </IconButton>
+          <Menu
+            id='menu-appbar'
+            anchorEl={props.anchorNav}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(props.anchorNav)}
+            onClose={props.handleCloseMenu}
+            sx={{ mt: '40px' }}
+          >
+            {navbarLinks.navLinks.map((link: any, key: number) => (
+              <MenuItem component={link.component} to={link.link} key={key}>
+                {link.linkName}
+              </MenuItem>
+            ))}
+          </Menu>
+        </Box>
+
+        <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
           {navbarLinks.navLinks.map((link: any, key: number) => (
             <MenuItem component={link.component} to={link.link} key={key}>
               {link.linkName}
             </MenuItem>
           ))}
-        </Menu>
-      </Box>
-
-      <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-        {navbarLinks.navLinks.map((link: any, key: number) => (
-          <MenuItem component={link.component} to={link.link} key={key}>
-            {link.linkName}
-          </MenuItem>
-        ))}
-      </Box>
-    </>
-  );
+        </Box>
+      </>
+    );
+  }
 }

@@ -20,13 +20,12 @@ export default function BlogPage() {
       <NavbarComponent />
       <Grid
         justifyContent='center'
-        sx={{ flexGrow: 2 }}
         container
         spacing={3}
         marginTop='2em'
       >
         {blogPosts.map((blogPost: IStorageBlogPosts, key: number) => (
-          <Grid key={key} item>
+          <Grid key={key} item lg={3} md={6} alignItems='center'>
             <BlogPosts blogPost={blogPost} />
           </Grid>
         ))}

@@ -49,6 +49,7 @@ export const APIService = {
 
   async getAllPosts() {
     const response = await axios.get(`${URL}/api/blogpost/getPosts`);
+    console.log(response)
     return response;
   },
 
