@@ -121,18 +121,19 @@ export default function CreateBlogPostModal(props: any) {
             </Card>
             <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
               <TitleRoundedIcon
-                sx={{ color: 'action.active', mr: 1, my: 0.5 }}
+                sx={{ color: 'action.active', mr: 1, my: 3 }}
                 fontSize='large'
               />
               <TextField
                 margin='normal'
                 required
                 fullWidth
-                multiline
                 id='header'
                 label='Title'
                 name='header'
                 autoComplete='header'
+                inputProps={{ maxLength: 56 }}
+                helperText='Can max be 55 characters in length'
                 // inputProps={{ style: { fontSize: 40 } }}
                 // InputLabelProps={{ style: { fontSize: 40 } }}
               />

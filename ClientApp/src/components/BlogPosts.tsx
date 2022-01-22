@@ -5,17 +5,14 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
+import Divider from '@material-ui/core/Divider';
 
 export default function BlogPosts(props: any) {
   return (
     <Card
       sx={{
-        height: 390,
-        maxWidth: 345,
-        maxHeight: 390,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
+        margin: 'auto',
+        height: '418px',
       }}
     >
       <CardMedia
@@ -24,7 +21,7 @@ export default function BlogPosts(props: any) {
         src={props.blogPost.imageSrc}
         alt={props.blogPost.imageName}
       />
-      <CardContent>
+      <CardContent sx={{height: '240px'}}>
         <Typography gutterBottom variant='h5' component='div'>
           {props.blogPost.header}
         </Typography>

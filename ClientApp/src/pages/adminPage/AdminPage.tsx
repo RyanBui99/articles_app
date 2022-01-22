@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';;
+import Box from '@material-ui/core/Box';
 import NavbarComponent from '../../components/NavbarComponent';
 import CreateUserModal from '../../components/modals/CreateUserModal';
 import { useDispatch } from 'react-redux';
@@ -77,7 +77,7 @@ export default function admin() {
                 <CreateUserModal handleclose={handleClose} open={open} />
               </Box>
             </Box>
-            <AdminUserTable users={users}/>
+            <AdminUserTable users={users} />
           </Paper>
         </Container>
       </div>
