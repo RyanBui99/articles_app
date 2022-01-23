@@ -34,7 +34,6 @@ export const getClickedBlogPost = (blogPostId: string) => {
     });
     try {
       const { data } = await APIService.getClickedPost(blogPostId);
-      console.log(data)
       dispatch({
         type: BlogPostActionTypes.GET_CLICKED_BLOGPOST_SUCCESS,
         payload: data,

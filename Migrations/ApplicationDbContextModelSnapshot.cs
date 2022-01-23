@@ -49,7 +49,7 @@ namespace articles_app.Migrations
                         new
                         {
                             Id = "ad376a8f-9eab-4bb9-9fca-30b01540f445",
-                            ConcurrencyStamp = "bd27d48a-2fb9-4861-8bd6-0bab6a26ee69",
+                            ConcurrencyStamp = "ca6e8e00-fe24-4ea9-85d0-75e0d2dcce65",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         });
@@ -148,15 +148,15 @@ namespace articles_app.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "677c4f89-4d28-4200-bef0-218d4e20b4af",
+                            ConcurrencyStamp = "5e827dd2-cb93-47fa-a9ed-b8c85630febc",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE/dE6diqcSlNtrYvlkLJKUjZsOvhF3uitlx68CMxR+hWpcu+BnJ5pZhEk4ZS4L4RQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEdlGu6YUmGQ9HJSUn8sb9dvO9z+ix3aMEhM+4ijWWMoLESqhkALPWzra4g/BCgMbA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "132d21e3-5747-4fc9-9cf8-c0edf84aa5b1",
+                            SecurityStamp = "91b898e0-eb46-487f-919f-3b093f74f4bf",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });

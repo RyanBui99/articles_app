@@ -10,8 +10,8 @@ using articles_app.Data;
 namespace articles_app.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220119225551_blogposts")]
-    partial class blogposts
+    [Migration("20220123160601_update")]
+    partial class update
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,7 +51,7 @@ namespace articles_app.Migrations
                         new
                         {
                             Id = "ad376a8f-9eab-4bb9-9fca-30b01540f445",
-                            ConcurrencyStamp = "60283b5a-c597-4bd9-97d0-243b8e895667",
+                            ConcurrencyStamp = "ca6e8e00-fe24-4ea9-85d0-75e0d2dcce65",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         });
@@ -150,15 +150,15 @@ namespace articles_app.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e47500bc-f861-4331-9da7-5321cc6ce34b",
+                            ConcurrencyStamp = "5e827dd2-cb93-47fa-a9ed-b8c85630febc",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECrnPdtfql7KoqyjT+PhNIiBsl1DGRnEExBafX/oUbFq9QQID5X3bXELVhInFk7PZQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEdlGu6YUmGQ9HJSUn8sb9dvO9z+ix3aMEhM+4ijWWMoLESqhkALPWzra4g/BCgMbA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0f7bc33b-4549-444a-a17a-ed4d8de702d3",
+                            SecurityStamp = "91b898e0-eb46-487f-919f-3b093f74f4bf",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -263,6 +263,9 @@ namespace articles_app.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Preview")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

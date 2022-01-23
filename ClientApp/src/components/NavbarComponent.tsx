@@ -19,7 +19,7 @@ export default function NavbarComponent() {
   };
 
   return (
-    <AppBar position='static'>
+    <AppBar position='static' sx={{ boxShadow: 'none' }}>
       <CssBaseline />
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
