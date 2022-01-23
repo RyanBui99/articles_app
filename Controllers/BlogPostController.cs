@@ -71,7 +71,6 @@ namespace articles_app.Controllers
         public async Task<IActionResult> EditBlogPost([FromRoute] string id, [FromForm] BlogPostModel editedPost)
         {
             var blogPost = await _context.BlogPosts.FindAsync(id);
-            var imageNameOfEditedPost = await SaveImage(editedPost.ImageFile, false);
 
             if (blogPost == null) return BadRequest(new ResponseToClient { Message = "Blog post does not exist" });
 
@@ -79,13 +78,13 @@ namespace articles_app.Controllers
             blogPost.Content = editedPost.Content;
             blogPost.Preview = CreatePreview(editedPost.Content);
 
-            if (imageNameOfEditedPost == editedPost.ImageName)
+            if (blogPost.ImageName == editedPost.ImageName)
             {
                 await _context.SaveChangesAsync();
                 return Ok(blogPost);
             } else
             {
-                blogPost.ImageName = await SaveImage(editedPost.ImageFile, true);
+                blogPost.ImageName = await SaveImage(editedPost.ImageFile);
                 await _context.SaveChangesAsync();
                 return Ok(blogPost);
             }
@@ -110,7 +109,7 @@ namespace articles_app.Controllers
         [Route("createPost")]
         public async Task<IActionResult> AddBlogPost([FromForm] BlogPostModel blogPost)
         {
-            blogPost.ImageName = await SaveImage(blogPost.ImageFile, true);
+            blogPost.ImageName = await SaveImage(blogPost.ImageFile);
             blogPost.Id = Guid.NewGuid().ToString();
             blogPost.Preview = CreatePreview(blogPost.Content);
             _context.BlogPosts.Add(blogPost);
@@ -124,24 +123,16 @@ namespace articles_app.Controllers
         /// <param name="imageFile"></param>
         /// <returns></returns>
         [NonAction]
-        private async Task<string> SaveImage(IFormFile imageFile, bool saveOrNot)
+        private async Task<string> SaveImage(IFormFile imageFile)
         {
-            if (saveOrNot == true)
+            string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
+            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", imageName);
+            using (var fileStream = new FileStream(imagePath, FileMode.Create))
             {
-                string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
-                //imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
-                var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", imageName);
-                using (var fileStream = new FileStream(imagePath, FileMode.Create))
-                {
-                    await imageFile.CopyToAsync(fileStream);
-                }
-                return imageName;
-            } else
-            {
-                string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
-                //imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
-                return imageName;
+                await imageFile.CopyToAsync(fileStream);
             }
+            return imageName;
         }
 
         /// <summary>

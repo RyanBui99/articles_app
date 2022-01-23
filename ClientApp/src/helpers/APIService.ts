@@ -4,8 +4,8 @@ import ICreateEditUser from '../interfaces/ICreateEditUser';
 import IStorageUser from '../interfaces/IStorageUser';
 import { ICreateBlogPost } from '../interfaces/ICreateBlogPost';
 
-const URL = process.env.SERVER_ENDPOINT || 'https://localhost:44342';
-// const URL = process.env.SERVER_ENDPOINT || 'https://localhost:5001';
+// const URL = process.env.SERVER_ENDPOINT || 'https://localhost:44342';
+const URL = process.env.SERVER_ENDPOINT || 'https://localhost:5001';
 
 /**
  * All the endpoints to the server
