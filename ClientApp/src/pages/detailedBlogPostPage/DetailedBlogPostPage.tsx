@@ -10,7 +10,6 @@ import NavbarComponent from '../../components/NavbarComponent';
 import IconButton from '@mui/material/IconButton';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import IStorageBlogPosts from '../../interfaces/IStorageBlogPosts';
 import { APIService } from '../../helpers/APIService';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypeSelector';

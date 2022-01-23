@@ -3,6 +3,7 @@ import ILoginRegister from '../interfaces/ILoginRegister';
 import ICreateEditUser from '../interfaces/ICreateEditUser';
 import IStorageUser from '../interfaces/IStorageUser';
 import { ICreateBlogPost } from '../interfaces/ICreateBlogPost';
+import { IEditBlogPost } from '../interfaces/IEditBlogPost';
 
 // const URL = process.env.SERVER_ENDPOINT || 'https://localhost:44342';
 const URL = process.env.SERVER_ENDPOINT || 'https://localhost:5001';
@@ -82,11 +83,12 @@ export const APIService = {
     return response;
   },
 
-  async editBlogPost(blogPostId: string, blogPost: ICreateBlogPost) {
+  async editBlogPost(blogPostId: string, blogPost: IEditBlogPost) {
     const blogPostAsFormData = new FormData();
     blogPostAsFormData.append('imageFile', blogPost.imageFile as any);
     blogPostAsFormData.append('header', blogPost.header);
     blogPostAsFormData.append('content', blogPost.content);
+    blogPostAsFormData.append('imageName', blogPost.imageName);
 
     const response = await axios.put(
       `${URL}/api/blogpost/editPost/${blogPostId}`,

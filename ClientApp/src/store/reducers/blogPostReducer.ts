@@ -3,7 +3,7 @@ import {
   BlogPostActionTypes,
 } from '../actions/blogPostActions';
 import IStorageBlogPosts from '../../interfaces/IStorageBlogPosts';
-import { ICreateBlogPost } from '../../interfaces/ICreateBlogPost';
+import { IEditBlogPost } from '../../interfaces/IEditBlogPost';
 
 interface State {
   pending: boolean;
@@ -27,6 +27,7 @@ export function blogPostReducer(
     case BlogPostActionTypes.GET_BLOGPOSTS_PENDING:
     case BlogPostActionTypes.GET_CLICKED_BLOGPOST_PENDING:
     case BlogPostActionTypes.ADD_BLOGPOST_PENDING:
+    case BlogPostActionTypes.EDIT_BLOGPOST_PENDING:
       return {
         ...state,
         pending: true,
@@ -49,9 +50,16 @@ export function blogPostReducer(
         pending: false,
         blogPosts: action.payload,
       };
+    case BlogPostActionTypes.EDIT_BLOGPOST_SUCCESS:
+      return {
+        ...state,
+        pending: false,
+        blogPost: action.payload,
+      };
     case BlogPostActionTypes.GET_BLOGPOSTS_ERROR:
     case BlogPostActionTypes.GET_CLICKED_BLOGPOST_ERROR:
     case BlogPostActionTypes.ADD_CLICKED_BLOGPOST_ERROR:
+    case BlogPostActionTypes.EDIT_BLOGPOST_ERROR:
       return {
         ...state,
         pending: false,

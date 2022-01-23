@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute';
 import AdminPage from './pages/adminPage/AdminPage';
 import BlogPage from './pages/blogPage/BlogPage';
 import DetailedBlogPostPage from './pages/detailedBlogPostPage/DetailedBlogPostPage';
@@ -16,7 +17,7 @@ function App() {
           <Routes>
             <Route path='/login' element={<LoginPage />} />
             <Route path='/register' element={<RegisterPage />} />
-            <Route path='/admin/dashboard' element={<AdminPage />} />
+            <Route path='/admin/dashboard' element={<PrivateRoute component={AdminPage} role='admin' />} />
             <Route path='/' element={<BlogPage />} />
             <Route path='/blogPost/:id' element={<DetailedBlogPostPage />} />
           </Routes>

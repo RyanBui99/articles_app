@@ -1,5 +1,6 @@
 import IStorageBlogPosts from '../../interfaces/IStorageBlogPosts';
 import { ICreateBlogPost } from '../../interfaces/ICreateBlogPost';
+import { IEditBlogPost } from '../../interfaces/IEditBlogPost';
 
 export enum BlogPostActionTypes {
   GET_BLOGPOSTS_PENDING = 'FETCH_USERS_PENDING',
@@ -11,6 +12,9 @@ export enum BlogPostActionTypes {
   ADD_BLOGPOST_PENDING = 'ADD_BLOGPOST_PENDING',
   ADD_BLOGPOST_SUCCESS = 'ADD_BLOGPOST_SUCCESS',
   ADD_CLICKED_BLOGPOST_ERROR = 'ADD_CLICKED_BLOGPOST_ERROR',
+  EDIT_BLOGPOST_PENDING = 'EDIT_BLOGPOST_PENDING',
+  EDIT_BLOGPOST_SUCCESS = 'EDIT_BLOGPOST_SUCCESS',
+  EDIT_BLOGPOST_ERROR = 'EDIT_BLOGPOST_ERROR',
 }
 
 interface getBlogPostsPending {
@@ -55,6 +59,20 @@ interface addBlogPostError {
   payload: string;
 }
 
+interface editBlogPostPending {
+  type: BlogPostActionTypes.EDIT_BLOGPOST_PENDING;
+}
+
+interface editBlogPostSuccess {
+  type: BlogPostActionTypes.EDIT_BLOGPOST_SUCCESS;
+  payload: IStorageBlogPosts;
+}
+
+interface editBlogPostError {
+  type: BlogPostActionTypes.EDIT_BLOGPOST_ERROR;
+  payload: string;
+}
+
 export type BlogPostActions =
   | getBlogPostsPending
   | getBlogPostsSuccess
@@ -64,4 +82,7 @@ export type BlogPostActions =
   | getClickedBlogPostError
   | addBlogPostPending
   | addBlogPostSuccess
-  | addBlogPostError;
+  | addBlogPostError
+  | editBlogPostPending
+  | editBlogPostSuccess
+  | editBlogPostError;

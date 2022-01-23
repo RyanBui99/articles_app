@@ -15,8 +15,9 @@ import SnackbarComponent from '../SnackbarComponent';
 import { useDispatch } from 'react-redux';
 import { styled } from '@mui/material/styles';
 import { ICreateBlogPost } from '../../interfaces/ICreateBlogPost';
-import { createNewPost } from '../../store/actionCreators/blogPostCreator';
+import { createNewPost, editBlogPost } from '../../store/actionCreators/blogPostCreator';
 import IStorageBlogPosts from '../../interfaces/IStorageBlogPosts';
+import { IEditBlogPost } from '../../interfaces/IEditBlogPost';
 
 export default function EditBlogPostModal(props: any) {
   const Input = styled('input')({
@@ -31,9 +32,11 @@ export default function EditBlogPostModal(props: any) {
   const [severity, setSeverity] = React.useState('success');
   const [imageToServer, setImageToServer] = React.useState<File>();
   const [image, setImage] = React.useState('');
+  const [imageName, setImageName] = React.useState('');
 
   React.useEffect(() => {
-    setImage(props.blogPost.imageSrc)
+    setImage(blogPost.imageSrc)
+    setImageName(blogPost.imageName)
   })
 
   const handleClick = () => {
@@ -49,17 +52,28 @@ export default function EditBlogPostModal(props: any) {
     const imageUrl = URL.createObjectURL(e.target.files[0]);
     setImage(imageUrl);
     setImageToServer(e.target.files[0]);
+    setImageName(e.target.files[0].name);
+    console.log(imageName)
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    const createBlogData: ICreateBlogPost = {
+    const editedBlogData: IEditBlogPost = {
       header: data.get('header')!.toString(),
       content: data.get('content')!.toString(),
       imageFile: imageToServer,
+      imageName: imageName,
     };
-    console.log(createBlogData)
+    try {
+      dispatch(editBlogPost(blogPost.id, editedBlogData));
+      setSeverity('success');
+      setMessage('Your post has been edited!');
+      props.handleclose();
+    } catch (error: any) {
+      setMessage(error.response.data.message);
+      setSeverity('error');
+    }
   };
 
   return (
