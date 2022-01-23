@@ -15,7 +15,7 @@ import SnackbarComponent from '../SnackbarComponent';
 import { useDispatch } from 'react-redux';
 import { styled } from '@mui/material/styles';
 import { ICreateBlogPost } from '../../interfaces/ICreateBlogPost';
-import { createNewPost } from '../../store/actionCreators/blogPostCreator';
+import { createNewPost, editBlogPost } from '../../store/actionCreators/blogPostCreator';
 import IStorageBlogPosts from '../../interfaces/IStorageBlogPosts';
 import { IEditBlogPost } from '../../interfaces/IEditBlogPost';
 
@@ -65,7 +65,15 @@ export default function EditBlogPostModal(props: any) {
       imageFile: imageToServer,
       imageName: imageName,
     };
-    console.log(editedBlogData)
+    try {
+      dispatch(editBlogPost(blogPost.id, editedBlogData));
+      setSeverity('success');
+      setMessage('Your post has been edited!');
+      props.handleclose();
+    } catch (error: any) {
+      setMessage(error.response.data.message);
+      setSeverity('error');
+    }
   };
 
   return (
