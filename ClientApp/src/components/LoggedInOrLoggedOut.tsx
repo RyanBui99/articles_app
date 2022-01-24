@@ -18,6 +18,7 @@ export default function LoggedInOrLoggedOut(props: any) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
+    props.handleCloseMenu()
     setOpen(true);
   };
 
@@ -47,9 +48,9 @@ export default function LoggedInOrLoggedOut(props: any) {
 
   if (user.username != 'null') {
     return (
-      <Box sx={{ flexGrow: 0 }}>
+      <Box>
         <Tooltip title='Open settings'>
-          <IconButton onClick={props.handleOpenMenu} sx={{ p: 0 }}>
+          <IconButton onClick={props.handleOpenMenu}>
             <Avatar alt={user.username} src='/static/images/avatar/2.jpg' />
           </IconButton>
         </Tooltip>
@@ -66,7 +67,7 @@ export default function LoggedInOrLoggedOut(props: any) {
             vertical: 'top',
             horizontal: 'right',
           }}
-          open={Boolean(props.anchorNav)} //anchorElUser
+          open={Boolean(props.anchorNav)}
           onClose={props.handleCloseMenu}
         >
           <MenuItem onClick={handleClickOpen}>Write a post</MenuItem>

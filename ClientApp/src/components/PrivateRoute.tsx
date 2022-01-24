@@ -17,9 +17,13 @@ export default function PrivateRoute({
   const userRole = user.role;
   const userHasRequiredRole = userRole == role ? true : false;
 
-  if (isAuthenticated && userHasRequiredRole) return <RouteComponent />;
+  if (isAuthenticated && userHasRequiredRole) {
+    return <RouteComponent />;
+  }
 
-  if (isAuthenticated && !userHasRequiredRole) return <Navigate to='/' />;
+  if (isAuthenticated && !userHasRequiredRole) {
+    return <Navigate to='/'/>
+  }
 
-  return <Navigate to='/' />;
+  return <Navigate to='/'/>
 }
