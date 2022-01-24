@@ -13,12 +13,19 @@ namespace articles_app.Data
             // any unique string id
             const string ADMIN_ID = "a18be9c0-aa65-4af8-bd17-00bd9344e575";
             const string ADMIN_ROLE_ID = "ad376a8f-9eab-4bb9-9fca-30b01540f445";
+            const string USER_ROLE_ID = "vd376a8f-9eab-4bb9-9fca-30b01540f446";
+            const string USER_ID = "xy376a8f-9eab-4bb9-9fca-30b01540f44z";
 
             builder.Entity<IdentityRole>().HasData(new IdentityRole
             {
                 Id = ADMIN_ROLE_ID,
                 Name = "admin",
                 NormalizedName = "ADMIN",
+            },
+            new IdentityRole {
+                Id = USER_ROLE_ID,
+                Name = "user",
+                NormalizedName = "USER",
             });
 
             var hasher = new PasswordHasher<IdentityUser>();
@@ -31,12 +38,25 @@ namespace articles_app.Data
                 EmailConfirmed = true,
                 NormalizedUserName = "ADMIN@ADMIN.COM",
                 NormalizedEmail = "ADMIN@ADMIN.COM"
+            },
+            new IdentityUser{
+                Id = USER_ID,
+                UserName = "user@user.com",
+                Email = "user@user.com",
+                PasswordHash = hasher.HashPassword(null, "User123#"),
+                EmailConfirmed = true,
+                NormalizedUserName = "USER@USER.com",
+                NormalizedEmail = "USER@USER.com"
             });
 
             builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
             {
                 RoleId = ADMIN_ROLE_ID,
                 UserId = ADMIN_ID
+            },
+            new IdentityUserRole<string>{
+                RoleId = USER_ROLE_ID,
+                UserId = USER_ID
             });
 
             builder.Entity<BlogPostModel>()

@@ -42,12 +42,13 @@ namespace articles_app.Controllers
                     var userCreation = await _userManager.CreateAsync(newUser, user.Password);
                     if (userCreation.Succeeded)
                     {
-                        var doesUserRoleExist = await _roleManager.RoleExistsAsync("user");
+                        // var doesUserRoleExist = await _roleManager.RoleExistsAsync("user");
 
                         // Create regular user role
-                        if (!doesUserRoleExist)
+                        if (user.Role == null)
                         {
-                            await _roleManager.CreateAsync(new IdentityRole() { Id = "vd376a8f-9eab-4bb9-9fca-30b01540f446", Name = "user" });
+                            await _userManager.AddToRoleAsync(newUser, "user");
+                            return Ok();
                         }
 
                         await _userManager.AddToRoleAsync(newUser, user.Role);
