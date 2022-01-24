@@ -17,14 +17,20 @@ import { getClickedBlogPost } from '../../store/actionCreators/blogPostCreator';
 import Container from '@mui/material/Container';
 import EditBlogPostModal from '../../components/modals/EditBlogPostModal';
 import Authentication from '../../helpers/Authentication';
+import { Box, Menu, useMediaQuery, useTheme } from '@material-ui/core';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { MenuItem } from '@mui/material';
 
 export default function DetailedBlogPostPage() {
   const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { blogPost } = useTypedSelector((state) => state.blogPosts);
   const blogPostId: any = useLocation().state;
   const isLoggedIn = Authentication.getUser().id != 'null' ? true : false;
+  const isMobile = useMediaQuery(theme.breakpoints.down('xl'));
+  const [anchor, setAnchor] = React.useState(null);
 
   React.useEffect(() => {
     dispatch(getClickedBlogPost(blogPostId));
@@ -42,6 +48,31 @@ export default function DetailedBlogPostPage() {
   const deleteBlogPost = async () => {
     await APIService.deleteBlogPost(blogPostId);
     navigate('/');
+  };
+
+  const handleMenu = (event: any) => {
+    setAnchor(event.currentTarget);
+  };
+
+  const DisplayMore = () => {
+    if (isMobile) return <></>;
+    return (
+      <>
+        <CardActions>
+          <IconButton onClick={handleClickOpen} sx={{ padding: '0' }}>
+            <ModeEditOutlineOutlinedIcon color='primary' />
+          </IconButton>
+          <IconButton onClick={deleteBlogPost} sx={{ padding: '0' }}>
+            <DeleteOutlinedIcon color='error' />
+          </IconButton>
+        </CardActions>
+        <EditBlogPostModal
+          handleclose={handleClose}
+          open={open}
+          blogPost={blogPost}
+        />
+      </>
+    );
   };
 
   return (
@@ -62,12 +93,53 @@ export default function DetailedBlogPostPage() {
               borderRadius: '0',
             }}
           >
-            <CardMedia
-              component='img'
-              height='280'
-              src={blogPost.imageSrc}
-              alt={blogPost.imageName}
-            />
+            <Box
+              style={{
+                backgroundImage: `url(${blogPost.imageSrc})`,
+                display: 'flex',
+                alignItems: 'flex-end',
+                justifyContent: 'flex-end',
+              }}
+              height='280px'
+            >
+              {isMobile && (
+                <Box>
+                  <IconButton
+                    sx={{ padding: '10px', alignSelf: 'flex-end' }}
+                    onClick={handleMenu}
+                  >
+                    <MoreVertIcon sx={{ color: 'white' }} fontSize='large' />
+                  </IconButton>
+                  <Menu
+                    id='menu-appbar'
+                    anchorEl={anchor}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={Boolean(anchor)}
+                    onClose={() => setAnchor(null)}
+                  >
+                    <MenuItem onClick={() => setAnchor(null)}>
+                      <Typography
+                        sx={{ display: 'flex', alignItems: 'center' }}
+                      >
+                        <ModeEditOutlineOutlinedIcon
+                          color='primary'
+                          sx={{ marginRight: '7px' }}
+                        />{' '}
+                        Edit
+                      </Typography>
+                    </MenuItem>
+                  </Menu>
+                </Box>
+              )}
+            </Box>
             <CardContent>
               <CardActions
                 sx={{
@@ -85,29 +157,7 @@ export default function DetailedBlogPostPage() {
                   {blogPost.header}
                 </Typography>
 
-                {isLoggedIn && (
-                  <>
-                    <CardActions>
-                      <IconButton
-                        onClick={handleClickOpen}
-                        sx={{ padding: '0' }}
-                      >
-                        <ModeEditOutlineOutlinedIcon color='primary' />
-                      </IconButton>
-                      <IconButton
-                        onClick={deleteBlogPost}
-                        sx={{ padding: '0' }}
-                      >
-                        <DeleteOutlinedIcon color='error' />
-                      </IconButton>
-                    </CardActions>
-                    <EditBlogPostModal
-                      handleclose={handleClose}
-                      open={open}
-                      blogPost={blogPost}
-                    />
-                  </>
-                )}
+                {isLoggedIn && <DisplayMore />}
               </CardActions>
 
               <Typography

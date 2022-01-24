@@ -61,7 +61,9 @@ export default function CreateUserModal(props: any) {
       props.handleclose();
     } catch (error: any) {
       setSeverity('error');
-      if (error.response == undefined)  setMessage('Something went wront. Maybe you forgot something');
+      if (error.response == undefined)
+        setMessage('Something went wront. Maybe you forgot something');
+        
       setMessage(error.response.data.message);
     }
   };

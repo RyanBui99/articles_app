@@ -49,21 +49,26 @@ export default function EditUserModal(props: any) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = new FormData(e.currentTarget);
-    const createUserData: IStorageUser = {
-      username: data.get('username')!.toString(),
-      role: data.get('role')!.toString(),
-      id: props.user.id,
-    };
 
     try {
+      const data = new FormData(e.currentTarget);
+      const createUserData: IStorageUser = {
+        username: data.get('username')!.toString(),
+        role: data.get('role')!.toString(),
+        id: props.user.id,
+      };
+
       await dispatch(editUser(props.user.id, createUserData));
       setSeverity('success');
       setMessage('User edited successfully');
       props.handleclose();
     } catch (error: any) {
-      setMessage(error.response.data.message);
       setSeverity('error');
+
+      if (error.response == undefined)
+        setMessage('Something went wront. Maybe you forgot something');
+
+      setMessage(error.response.data.message);
     }
   };
 
