@@ -26,6 +26,7 @@ export default function DetailedBlogPostPage() {
 
   React.useEffect(() => {
     dispatch(getClickedBlogPost(blogPostId));
+    blogPost.content
   }, [dispatch]);
 
   const handleClickOpen = () => {
@@ -41,6 +42,7 @@ export default function DetailedBlogPostPage() {
     navigate('/');
   };
 
+  console.log(blogPost.content);
   return (
     <>
       <NavbarComponent />
@@ -91,13 +93,21 @@ export default function DetailedBlogPostPage() {
                 </CardActions>
               </CardActions>
 
-              <Typography variant='body2' color='text.secondary'>
+              <Typography
+                variant='body2'
+                color='text.secondary'
+                sx={{whiteSpace: 'pre-line'}}
+              >
                 {blogPost.content}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
-        <EditBlogPostModal handleclose={handleClose} open={open} blogPost={blogPost} />
+        <EditBlogPostModal
+          handleclose={handleClose}
+          open={open}
+          blogPost={blogPost}
+        />
       </Container>
     </>
   );

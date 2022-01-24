@@ -14,8 +14,7 @@ import TitleRoundedIcon from '@mui/icons-material/TitleRounded';
 import SnackbarComponent from '../SnackbarComponent';
 import { useDispatch } from 'react-redux';
 import { styled } from '@mui/material/styles';
-import { ICreateBlogPost } from '../../interfaces/ICreateBlogPost';
-import { createNewPost, editBlogPost } from '../../store/actionCreators/blogPostCreator';
+import { editBlogPost } from '../../store/actionCreators/blogPostCreator';
 import IStorageBlogPosts from '../../interfaces/IStorageBlogPosts';
 import { IEditBlogPost } from '../../interfaces/IEditBlogPost';
 
@@ -23,7 +22,7 @@ export default function EditBlogPostModal(props: any) {
   const Input = styled('input')({
     display: 'none',
   });
-  const blogPost: IStorageBlogPosts = props.blogPost
+  const blogPost: IStorageBlogPosts = props.blogPost;
   const theme = useTheme();
   const dispatch = useDispatch();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -35,9 +34,9 @@ export default function EditBlogPostModal(props: any) {
   const [imageName, setImageName] = React.useState('');
 
   React.useEffect(() => {
-    setImage(blogPost.imageSrc)
-    setImageName(blogPost.imageName)
-  })
+    setImage(blogPost.imageSrc);
+    setImageName(props.blogPost.imageName);
+  }, [blogPost.imageSrc, blogPost.imageName]);
 
   const handleClick = () => {
     setOpen(true);
@@ -53,7 +52,7 @@ export default function EditBlogPostModal(props: any) {
     setImage(imageUrl);
     setImageToServer(e.target.files[0]);
     setImageName(e.target.files[0].name);
-    console.log(imageName)
+    console.log(imageUrl);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -95,9 +94,7 @@ export default function EditBlogPostModal(props: any) {
         <DialogActions
           sx={{ display: 'flex', justifyContent: 'space-between' }}
         >
-          <DialogTitle id='responsive-dialog-title'>
-            Edit Blog Post
-          </DialogTitle>
+          <DialogTitle id='responsive-dialog-title'>Edit Blog Post</DialogTitle>
           <IconButton
             edge='start'
             color='inherit'
