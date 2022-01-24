@@ -72,7 +72,7 @@ export default function LoggedInOrLoggedOut(props: any) {
         >
           <MenuItem onClick={handleClickOpen}>Write a post</MenuItem>
           <AdminOrUser />
-          {/* <MenuItem onClick={logout}>Log out</MenuItem> */}
+          <MenuItem onClick={logout}>Log out</MenuItem>
         </Menu>
         <CreateBlogPostModal handleclose={handleClose} open={open} />
       </Box>

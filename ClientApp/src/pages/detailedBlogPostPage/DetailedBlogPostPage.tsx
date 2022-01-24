@@ -16,6 +16,7 @@ import { useTypedSelector } from '../../hooks/useTypeSelector';
 import { getClickedBlogPost } from '../../store/actionCreators/blogPostCreator';
 import Container from '@mui/material/Container';
 import EditBlogPostModal from '../../components/modals/EditBlogPostModal';
+import Authentication from '../../helpers/Authentication';
 
 export default function DetailedBlogPostPage() {
   const [open, setOpen] = React.useState(false);
@@ -23,10 +24,11 @@ export default function DetailedBlogPostPage() {
   const dispatch = useDispatch();
   const { blogPost } = useTypedSelector((state) => state.blogPosts);
   const blogPostId: any = useLocation().state;
+  const isLoggedIn = Authentication.getUser().id != 'null' ? true : false;
 
   React.useEffect(() => {
     dispatch(getClickedBlogPost(blogPostId));
-    blogPost.content
+    blogPost.content;
   }, [dispatch]);
 
   const handleClickOpen = () => {
@@ -42,7 +44,6 @@ export default function DetailedBlogPostPage() {
     navigate('/');
   };
 
-  console.log(blogPost.content);
   return (
     <>
       <NavbarComponent />
@@ -83,31 +84,42 @@ export default function DetailedBlogPostPage() {
                 >
                   {blogPost.header}
                 </Typography>
-                <CardActions>
-                  <IconButton onClick={handleClickOpen} sx={{ padding: '0' }}>
-                    <ModeEditOutlineOutlinedIcon color='primary' />
-                  </IconButton>
-                  <IconButton onClick={deleteBlogPost} sx={{ padding: '0' }}>
-                    <DeleteOutlinedIcon color='error' />
-                  </IconButton>
-                </CardActions>
+
+                {isLoggedIn && (
+                  <>
+                    <CardActions>
+                      <IconButton
+                        onClick={handleClickOpen}
+                        sx={{ padding: '0' }}
+                      >
+                        <ModeEditOutlineOutlinedIcon color='primary' />
+                      </IconButton>
+                      <IconButton
+                        onClick={deleteBlogPost}
+                        sx={{ padding: '0' }}
+                      >
+                        <DeleteOutlinedIcon color='error' />
+                      </IconButton>
+                    </CardActions>
+                    <EditBlogPostModal
+                      handleclose={handleClose}
+                      open={open}
+                      blogPost={blogPost}
+                    />
+                  </>
+                )}
               </CardActions>
 
               <Typography
                 variant='body2'
                 color='text.secondary'
-                sx={{whiteSpace: 'pre-line'}}
+                sx={{ whiteSpace: 'pre-line' }}
               >
                 {blogPost.content}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
-        <EditBlogPostModal
-          handleclose={handleClose}
-          open={open}
-          blogPost={blogPost}
-        />
       </Container>
     </>
   );
