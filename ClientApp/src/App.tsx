@@ -8,16 +8,21 @@ import DetailedBlogPostPage from './pages/detailedBlogPostPage/DetailedBlogPostP
 import LoginPage from './pages/loginPage/LoginPage';
 import RegisterPage from './pages/registerPage/RegisterPage';
 import { store } from './store/store';
+import CssBaseline from '@mui/material/CssBaseline';
 
 function App() {
   return (
     <div className='App'>
+      <CssBaseline />
       <Provider store={store}>
         <BrowserRouter>
           <Routes>
             <Route path='/login' element={<LoginPage />} />
-            <Route path='/register' element={<RegisterPage />} />
-            <Route path='/admin/dashboard' element={<PrivateRoute component={AdminPage} role='admin' />} />
+            {/* <Route path='/register' element={<RegisterPage />} /> */}
+            <Route
+              path='/admin/dashboard'
+              element={<PrivateRoute component={AdminPage} role='admin' />}
+            />
             <Route path='/' element={<BlogPage />} />
             <Route path='/blogPost/:id' element={<DetailedBlogPostPage />} />
           </Routes>

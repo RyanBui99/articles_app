@@ -3,7 +3,6 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
 import { Link } from 'react-router-dom';
 import LoggedInOrLoggedOut from './LoggedInOrLoggedOut';
 
@@ -20,7 +19,6 @@ export default function NavbarComponent() {
 
   return (
     <AppBar position='static' sx={{ boxShadow: 'none' }}>
-      <CssBaseline />
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
           <Typography
