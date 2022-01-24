@@ -10,8 +10,8 @@ using articles_app.Data;
 namespace articles_app.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220123163908_macDB")]
-    partial class macDB
+    [Migration("20220124084319_Seed")]
+    partial class Seed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,7 +51,7 @@ namespace articles_app.Migrations
                         new
                         {
                             Id = "ad376a8f-9eab-4bb9-9fca-30b01540f445",
-                            ConcurrencyStamp = "faafa8e3-0a50-40da-ac6a-039e1c92df9c",
+                            ConcurrencyStamp = "efe1665f-47cd-486f-8c5c-8310d610773e",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         });
@@ -150,15 +150,15 @@ namespace articles_app.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "86bbeadb-74ca-4e4e-a96d-d3b4cfd135a5",
+                            ConcurrencyStamp = "ca2d191f-3915-4825-95cc-652e7c3c4e24",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDTFKmRo7G+9wYfkfsHG9fArgF5j2xtMuzJ2lWVGhanIaneXUqjh4cYQ/MdZ6jclXw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMd4TFP8O+kVVDyXbPBZ+SK1NyIBgFc0ZnVZ82D2IYngDhlzAUI/Hg1xuw6OK542IQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e81b78dd-8cd8-43c2-9e9d-8e73e5fd63a6",
+                            SecurityStamp = "058b7561-12d1-40db-9c79-9e823cbb5ee5",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -271,6 +271,40 @@ namespace articles_app.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BlogPosts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "7d3c84af-c275-4eb8-8c76-82efc724d2ed",
+                            Content = "I gave it a cold? I gave it a virus. A computer virus. God help us, we're in the hands of engineers. Jaguar shark! So tell me - does it really exist? This thing comes fully loaded. AM/FM radio, reclining bucket seats, and... power windows. Forget the fat lady! You're obsessed with the fat lady! Drive us out of here!\r\nYou know what ? It is beets.I've crashed into a beet truck. So you two dig up, dig up dinosaurs? Must go faster. So you two dig up, dig up dinosaurs? Is this my espresso machine? Wh-what is-h-how did you get my espresso machine? This thing comes fully loaded. AM/FM radio, reclining bucket seats, and... power windows.\r\nYou know what ? It is beets.I've crashed into a beet truck. You really think you can fly that thing? Is this my espresso machine? Wh-what is-h-how did you get my espresso machine? Forget the fat lady! You're obsessed with the fat lady! Drive us out of here!\r\nDid he just throw my cat out of the window ? Must go faster.Yeah,but John, if The Pirates of the Caribbean breaks down, the pirates don’t eat the tourists. Hey, you know how I'm, like, always trying to save the planet? Here's my chance.God help us, we're in the hands of engineers.\r\nMust go faster... go, go, go, go, go! We gotta burn the rain forest, dump toxic waste, pollute the air, and rip up the OZONE!'Cause maybe if we screw up this planet enough, they won't want it anymore!God help us, we're in the hands of engineers. You know what? It is beets. I've crashed into a beet truck.",
+                            Header = "I gave it a cold? I gave it a virus.",
+                            ImageName = "Sprinkle.svg",
+                            Preview = "I gave it a cold? I gave it a virus. A computer virus. God help us, we're in the hands of engineers. Jaguar shark! So tell me - does it really exist? This thing comes..."
+                        },
+                        new
+                        {
+                            Id = "213907f6-c192-4813-83ec-49611a7e8bfd",
+                            Content = "I gave it a cold? I gave it a virus. A computer virus. God help us, we're in the hands of engineers. Jaguar shark! So tell me - does it really exist? This thing comes fully loaded. AM/FM radio, reclining bucket seats, and... power windows. Forget the fat lady! You're obsessed with the fat lady! Drive us out of here!\r\nYou know what ? It is beets.I've crashed into a beet truck. So you two dig up, dig up dinosaurs? Must go faster. So you two dig up, dig up dinosaurs? Is this my espresso machine? Wh-what is-h-how did you get my espresso machine? This thing comes fully loaded. AM/FM radio, reclining bucket seats, and... power windows.\r\nYou know what ? It is beets.I've crashed into a beet truck. You really think you can fly that thing? Is this my espresso machine? Wh-what is-h-how did you get my espresso machine? Forget the fat lady! You're obsessed with the fat lady! Drive us out of here!\r\nDid he just throw my cat out of the window ? Must go faster.Yeah,but John, if The Pirates of the Caribbean breaks down, the pirates don’t eat the tourists. Hey, you know how I'm, like, always trying to save the planet? Here's my chance.God help us, we're in the hands of engineers.\r\nMust go faster... go, go, go, go, go! We gotta burn the rain forest, dump toxic waste, pollute the air, and rip up the OZONE!'Cause maybe if we screw up this planet enough, they won't want it anymore!God help us, we're in the hands of engineers. You know what? It is beets. I've crashed into a beet truck.",
+                            Header = "I gave it a cold? I gave it a virus.",
+                            ImageName = "Sprinkle2.svg",
+                            Preview = "I gave it a cold? I gave it a virus. A computer virus. God help us, we're in the hands of engineers. Jaguar shark! So tell me - does it really exist? This thing comes..."
+                        },
+                        new
+                        {
+                            Id = "0a21b3e6-31a2-4e36-9a8d-d5292b679296",
+                            Content = "I gave it a cold? I gave it a virus. A computer virus. God help us, we're in the hands of engineers. Jaguar shark! So tell me - does it really exist? This thing comes fully loaded. AM/FM radio, reclining bucket seats, and... power windows. Forget the fat lady! You're obsessed with the fat lady! Drive us out of here!\r\nYou know what ? It is beets.I've crashed into a beet truck. So you two dig up, dig up dinosaurs? Must go faster. So you two dig up, dig up dinosaurs? Is this my espresso machine? Wh-what is-h-how did you get my espresso machine? This thing comes fully loaded. AM/FM radio, reclining bucket seats, and... power windows.\r\nYou know what ? It is beets.I've crashed into a beet truck. You really think you can fly that thing? Is this my espresso machine? Wh-what is-h-how did you get my espresso machine? Forget the fat lady! You're obsessed with the fat lady! Drive us out of here!\r\nDid he just throw my cat out of the window ? Must go faster.Yeah,but John, if The Pirates of the Caribbean breaks down, the pirates don’t eat the tourists. Hey, you know how I'm, like, always trying to save the planet? Here's my chance.God help us, we're in the hands of engineers.\r\nMust go faster... go, go, go, go, go! We gotta burn the rain forest, dump toxic waste, pollute the air, and rip up the OZONE!'Cause maybe if we screw up this planet enough, they won't want it anymore!God help us, we're in the hands of engineers. You know what? It is beets. I've crashed into a beet truck.",
+                            Header = "I gave it a cold? I gave it a virus.",
+                            ImageName = "Sprinkle3.svg",
+                            Preview = "I gave it a cold? I gave it a virus. A computer virus. God help us, we're in the hands of engineers. Jaguar shark! So tell me - does it really exist? This thing comes..."
+                        },
+                        new
+                        {
+                            Id = "8043431a-4479-4425-a9bb-e44e45374dc6",
+                            Content = "I gave it a cold? I gave it a virus. A computer virus. God help us, we're in the hands of engineers. Jaguar shark! So tell me - does it really exist? This thing comes fully loaded. AM/FM radio, reclining bucket seats, and... power windows. Forget the fat lady! You're obsessed with the fat lady! Drive us out of here!\r\nYou know what ? It is beets.I've crashed into a beet truck. So you two dig up, dig up dinosaurs? Must go faster. So you two dig up, dig up dinosaurs? Is this my espresso machine? Wh-what is-h-how did you get my espresso machine? This thing comes fully loaded. AM/FM radio, reclining bucket seats, and... power windows.\r\nYou know what ? It is beets.I've crashed into a beet truck. You really think you can fly that thing? Is this my espresso machine? Wh-what is-h-how did you get my espresso machine? Forget the fat lady! You're obsessed with the fat lady! Drive us out of here!\r\nDid he just throw my cat out of the window ? Must go faster.Yeah,but John, if The Pirates of the Caribbean breaks down, the pirates don’t eat the tourists. Hey, you know how I'm, like, always trying to save the planet? Here's my chance.God help us, we're in the hands of engineers.\r\nMust go faster... go, go, go, go, go! We gotta burn the rain forest, dump toxic waste, pollute the air, and rip up the OZONE!'Cause maybe if we screw up this planet enough, they won't want it anymore!God help us, we're in the hands of engineers. You know what? It is beets. I've crashed into a beet truck.",
+                            Header = "I gave it a cold? I gave it a virus.",
+                            ImageName = "Sprinkle4.svg",
+                            Preview = "I gave it a cold? I gave it a virus. A computer virus. God help us, we're in the hands of engineers. Jaguar shark! So tell me - does it really exist? This thing comes..."
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
