@@ -44,23 +44,25 @@ export default function CreateUserModal(props: any) {
     setOpen(false);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = new FormData(e.currentTarget);
-    const createUserData: ICreateEditUser = {
-      email: data.get('username')!.toString(),
-      password: data.get('password')!.toString(),
-      role: data.get('role')!.toString(),
-    };
 
     try {
-      dispatch(addUsers(createUserData));
+      const data = new FormData(e.currentTarget);
+      const createUserData: ICreateEditUser = {
+        email: data.get('username')!.toString(),
+        password: data.get('password')!.toString(),
+        role: data.get('role')!.toString(),
+      };
+
+      await dispatch(addUsers(createUserData));
       setSeverity('success');
       setMessage('User created successfully');
       props.handleclose();
     } catch (error: any) {
-      setMessage(error.response.data.message);
       setSeverity('error');
+      if (error.response == undefined)  setMessage('Something went wront. Maybe you forgot something');
+      setMessage(error.response.data.message);
     }
   };
 

@@ -45,8 +45,8 @@ export const addUsers = (userCredentials: ICreateEditUser) => {
       });
     } catch (error: any) {
       dispatch({
-        type: UserActionType.GET_USERS_ERROR,
-        payload: error.message,
+        type: UserActionType.ADD_USER_ERROR,
+        payload: error.response.data.message,
       });
       throw error
     }

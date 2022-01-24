@@ -19,22 +19,12 @@ export default function PrivateRoute({
   const userHasRequiredRole = userRole == role ? true : false;
 
   if (isAuthenticated && userHasRequiredRole) {
-      console.log('authorized')
     return <RouteComponent />;
   }
 
   if (isAuthenticated && !userHasRequiredRole) {
-    console.log('NOT authorized')
-    return (
-      <>
-        <h1>asdf</h1>
-      </>
-    );
+    return <Navigate to='/'/>
   }
 
-  return (
-    <>
-      <h1>adsfasdf</h1>
-    </>
-  );
+  return <Navigate to='/'/>
 }
