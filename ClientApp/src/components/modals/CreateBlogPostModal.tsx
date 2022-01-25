@@ -117,7 +117,7 @@ export default function CreateBlogPostModal(props: any) {
                 component='img'
                 height='140'
                 image={image}
-                alt='green iguana'
+                alt={image}
               />
             </Card>
             <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>

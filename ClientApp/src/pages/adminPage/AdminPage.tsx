@@ -1,16 +1,13 @@
+import { Paper, Box, Typography } from '@mui/material';
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import NavbarComponent from '../../components/NavbarComponent';
-import CreateUserModal from '../../components/modals/CreateUserModal';
 import { useDispatch } from 'react-redux';
+import { Container, Button } from 'reactstrap';
+import AdminUserTable from '../../components/AdminUserTable';
+import CreateUserModal from '../../components/modals/CreateUserModal';
+import NavbarComponent from '../../components/NavbarComponent';
 import { useTypedSelector } from '../../hooks/useTypeSelector';
 import { getUsers } from '../../store/actionCreators/userCreator';
-import AdminUserTable from '../../components/AdminUserTable';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {

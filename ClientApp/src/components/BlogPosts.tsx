@@ -5,7 +5,6 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
-import Divider from '@material-ui/core/Divider';
 
 export default function BlogPosts(props: any) {
   return (

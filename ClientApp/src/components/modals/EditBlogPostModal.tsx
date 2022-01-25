@@ -3,25 +3,18 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import Card from '@mui/material/Card';
 import CloseIcon from '@mui/icons-material/Close';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import CardMedia from '@mui/material/CardMedia';
 import { useTheme } from '@mui/material/styles';
-import { Box, TextField, IconButton, DialogTitle } from '@material-ui/core';
-import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
-import TitleRoundedIcon from '@mui/icons-material/TitleRounded';
+import { Box, IconButton, DialogTitle } from '@material-ui/core';
 import SnackbarComponent from '../SnackbarComponent';
 import { useDispatch } from 'react-redux';
-import { styled } from '@mui/material/styles';
 import { editBlogPost } from '../../store/actionCreators/blogPostCreator';
 import IStorageBlogPosts from '../../interfaces/IStorageBlogPosts';
 import { IEditBlogPost } from '../../interfaces/IEditBlogPost';
+import BlogPostContent from '../BlogPostContent';
 
 export default function EditBlogPostModal(props: any) {
-  const Input = styled('input')({
-    display: 'none',
-  });
   const blogPost: IStorageBlogPosts = props.blogPost;
   const theme = useTheme();
   const dispatch = useDispatch();
@@ -52,7 +45,6 @@ export default function EditBlogPostModal(props: any) {
     setImage(imageUrl);
     setImageToServer(e.target.files[0]);
     setImageName(e.target.files[0].name);
-    console.log(imageUrl);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -106,67 +98,11 @@ export default function EditBlogPostModal(props: any) {
         </DialogActions>
         <DialogContent dividers>
           <Box component='form' onSubmit={handleSubmit} width='100%'>
-            <label htmlFor='contained-button-file'>
-              <Input
-                accept='image/*'
-                id='contained-button-file'
-                multiple
-                type='file'
-                name='image'
-                onChange={selectedFile}
-              />
-              <Button variant='contained' component='span'>
-                Upload
-              </Button>
-            </label>
-
-            <Card>
-              <CardMedia
-                component='img'
-                height='140'
-                image={image}
-                alt={blogPost.imageName}
-              />
-            </Card>
-            <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-              <TitleRoundedIcon
-                sx={{ color: 'action.active', mr: 1, my: 3 }}
-                fontSize='large'
-              />
-              <TextField
-                margin='normal'
-                defaultValue={blogPost.header}
-                required
-                fullWidth
-                id='header'
-                label='Title'
-                name='header'
-                autoComplete='header'
-                inputProps={{ maxLength: 56 }}
-                helperText='Can max be 56 characters in length'
-                // inputProps={{ style: { fontSize: 40 } }}
-                // InputLabelProps={{ style: { fontSize: 40 } }}
-              />
-            </Box>
-
-            <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-              <AddCircleOutlineRoundedIcon
-                sx={{ color: 'action.active', mr: 1, my: 0.9 }}
-                fontSize='large'
-              />
-              <TextField
-                margin='normal'
-                required
-                fullWidth
-                multiline
-                id='content'
-                label='Tell us your story...'
-                name='content'
-                autoComplete='content'
-                autoFocus
-                defaultValue={blogPost.content}
-              />
-            </Box>
+            <BlogPostContent
+              selectedFile={selectedFile}
+              image={image}
+              blogPost={blogPost}
+            />
             <DialogActions>
               <Button onClick={handleClick} autoFocus type='submit'>
                 Confirm Edit
