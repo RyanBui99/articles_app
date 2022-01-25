@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
+import React from 'react';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -9,13 +7,13 @@ import Container from '@mui/material/Container';
 import ILoginRegister from '../../interfaces/ILoginRegister';
 import NavbarComponent from '../../components/NavbarComponent';
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const registerData: ILoginRegister = {
-      username: data.get('username'),
-      password: data.get('password'),
+      email: data.get('username')!.toString(),
+      password: data.get('password')!.toString(),
     };
   };
 

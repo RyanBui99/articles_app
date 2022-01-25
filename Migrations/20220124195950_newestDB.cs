@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace articles_app.Migrations
 {
-    public partial class Articles_app : Migration
+    public partial class newestDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,6 +44,21 @@ namespace articles_app.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BlogPosts",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Header = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Preview = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BlogPosts", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -157,8 +172,8 @@ namespace articles_app.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "ad376a8f-9eab-4bb9-9fca-30b01540f445", "1c1b9dba-6917-4aaa-b07e-e428eaa2fd5e", "admin", "ADMIN" },
-                    { "vd376a8f-9eab-4bb9-9fca-30b01540f446", "30a99d44-75e4-4d9a-aaf5-80ea248ab5e4", "editor", "EDITOR" }
+                    { "ad376a8f-9eab-4bb9-9fca-30b01540f445", "44961897-76f5-4886-be77-721a278100f4", "admin", "ADMIN" },
+                    { "vd376a8f-9eab-4bb9-9fca-30b01540f446", "8c60a06f-bf8e-4dc1-8da5-4c16bfa75e8d", "user", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -166,8 +181,19 @@ namespace articles_app.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "a18be9c0-aa65-4af8-bd17-00bd9344e575", 0, "4ab79daf-ebf7-4b87-90a2-5f31d345e25e", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEOpFwtwJyGoJLtqoA78UCUBsU/NQIJkCu9mfFdWr2IAGIJOS8Y2fMJQilbtGr9igpQ==", null, false, "3c492352-58b9-4154-b9bd-c77f19fe13a6", false, "admin@admin.com" },
-                    { "v18be9c0-aa65-4af8-bd17-00bd9344e576", 0, "d1313600-50ab-42dd-9a90-625fe36ec896", "editor@editor.com", true, false, null, "EDITOR@EDITOR.COM", "EDITOR@EDITOR.COM", "AQAAAAEAACcQAAAAEDeuaA1rWW/pu6sjWWfgREghW8IaE3BGEy4/ARyDfBjKML0CaG2GXjSOSt0n84o6aw==", null, false, "a0a830fd-1f9e-4fa6-b9ab-2259bd1739cb", false, "editor@editor.com" }
+                    { "a18be9c0-aa65-4af8-bd17-00bd9344e575", 0, "be884e05-2728-414d-be4f-75bc63cd3b65", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEBR/udLcGH5E7JjI2ysMMUdMSKSxS90ClnPSkHKCX9nhjQugBElpKvemxMa6JBL1Lw==", null, false, "476c9b32-df45-4a0a-b866-19602a04ba3c", false, "admin@admin.com" },
+                    { "xy376a8f-9eab-4bb9-9fca-30b01540f44z", 0, "4ad80009-d81b-41f0-bc4c-47fc99b9ca76", "user@user.com", true, false, null, "USER@USER.com", "USER@USER.com", "AQAAAAEAACcQAAAAEBQ+cYryPWDwA1RXKnoDq0I7tFoFbObAJFNL9aLiLMwGlbxxFoDfWAJGvdCuWAcioQ==", null, false, "568e900d-9db8-4fd6-80b2-6ded80b2faa5", false, "user@user.com" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "BlogPosts",
+                columns: new[] { "Id", "Content", "Header", "ImageName", "Preview" },
+                values: new object[,]
+                {
+                    { "f366a9bb-7908-4033-af39-686f6c02d244", "I gave it a cold? I gave it a virus. A computer virus. God help us, we're in the hands of engineers. Jaguar shark! So tell me - does it really exist? This thing comes fully loaded. AM/FM radio, reclining bucket seats, and... power windows. Forget the fat lady! You're obsessed with the fat lady! Drive us out of here!\nYou know what ? It is beets.I've crashed into a beet truck. So you two dig up, dig up dinosaurs? Must go faster. So you two dig up, dig up dinosaurs? Is this my espresso machine? Wh-what is-h-how did you get my espresso machine? This thing comes fully loaded. AM/FM radio, reclining bucket seats, and... power windows.\nYou know what ? It is beets.I've crashed into a beet truck. You really think you can fly that thing? Is this my espresso machine? Wh-what is-h-how did you get my espresso machine? Forget the fat lady! You're obsessed with the fat lady! Drive us out of here!\nDid he just throw my cat out of the window ? Must go faster.Yeah,but John, if The Pirates of the Caribbean breaks down, the pirates don’t eat the tourists. Hey, you know how I'm, like, always trying to save the planet? Here's my chance.God help us, we're in the hands of engineers.\nMust go faster... go, go, go, go, go! We gotta burn the rain forest, dump toxic waste, pollute the air, and rip up the OZONE!'Cause maybe if we screw up this planet enough, they won't want it anymore!God help us, we're in the hands of engineers. You know what? It is beets. I've crashed into a beet truck.", "I gave it a cold? I gave it a virus.", "Sprinkle.svg", "I gave it a cold? I gave it a virus. A computer virus. God help us, we're in the hands of engineers. Jaguar shark! So tell me - does it really exist? This thing comes..." },
+                    { "529e74bb-d0b9-481d-8b9e-ca28ef4671e4", "I gave it a cold? I gave it a virus. A computer virus. God help us, we're in the hands of engineers. Jaguar shark! So tell me - does it really exist? This thing comes fully loaded. AM/FM radio, reclining bucket seats, and... power windows. Forget the fat lady! You're obsessed with the fat lady! Drive us out of here!\nYou know what ? It is beets.I've crashed into a beet truck. So you two dig up, dig up dinosaurs? Must go faster. So you two dig up, dig up dinosaurs? Is this my espresso machine? Wh-what is-h-how did you get my espresso machine? This thing comes fully loaded. AM/FM radio, reclining bucket seats, and... power windows.\nYou know what ? It is beets.I've crashed into a beet truck. You really think you can fly that thing? Is this my espresso machine? Wh-what is-h-how did you get my espresso machine? Forget the fat lady! You're obsessed with the fat lady! Drive us out of here!\nDid he just throw my cat out of the window ? Must go faster.Yeah,but John, if The Pirates of the Caribbean breaks down, the pirates don’t eat the tourists. Hey, you know how I'm, like, always trying to save the planet? Here's my chance.God help us, we're in the hands of engineers.\nMust go faster... go, go, go, go, go! We gotta burn the rain forest, dump toxic waste, pollute the air, and rip up the OZONE!'Cause maybe if we screw up this planet enough, they won't want it anymore!God help us, we're in the hands of engineers. You know what? It is beets. I've crashed into a beet truck.", "I gave it a cold? I gave it a virus.", "Sprinkle2.svg", "I gave it a cold? I gave it a virus. A computer virus. God help us, we're in the hands of engineers. Jaguar shark! So tell me - does it really exist? This thing comes..." },
+                    { "9292bc91-347a-46c7-a316-7a3b7e33fd41", "I gave it a cold? I gave it a virus. A computer virus. God help us, we're in the hands of engineers. Jaguar shark! So tell me - does it really exist? This thing comes fully loaded. AM/FM radio, reclining bucket seats, and... power windows. Forget the fat lady! You're obsessed with the fat lady! Drive us out of here!\nYou know what ? It is beets.I've crashed into a beet truck. So you two dig up, dig up dinosaurs? Must go faster. So you two dig up, dig up dinosaurs? Is this my espresso machine? Wh-what is-h-how did you get my espresso machine? This thing comes fully loaded. AM/FM radio, reclining bucket seats, and... power windows.\nYou know what ? It is beets.I've crashed into a beet truck. You really think you can fly that thing? Is this my espresso machine? Wh-what is-h-how did you get my espresso machine? Forget the fat lady! You're obsessed with the fat lady! Drive us out of here!\nDid he just throw my cat out of the window ? Must go faster.Yeah,but John, if The Pirates of the Caribbean breaks down, the pirates don’t eat the tourists. Hey, you know how I'm, like, always trying to save the planet? Here's my chance.God help us, we're in the hands of engineers.\nMust go faster... go, go, go, go, go! We gotta burn the rain forest, dump toxic waste, pollute the air, and rip up the OZONE!'Cause maybe if we screw up this planet enough, they won't want it anymore!God help us, we're in the hands of engineers. You know what? It is beets. I've crashed into a beet truck.", "I gave it a cold? I gave it a virus.", "Sprinkle3.svg", "I gave it a cold? I gave it a virus. A computer virus. God help us, we're in the hands of engineers. Jaguar shark! So tell me - does it really exist? This thing comes..." },
+                    { "6369285f-8b53-4bdd-8678-0b16b15f2d16", "I gave it a cold? I gave it a virus. A computer virus. God help us, we're in the hands of engineers. Jaguar shark! So tell me - does it really exist? This thing comes fully loaded. AM/FM radio, reclining bucket seats, and... power windows. Forget the fat lady! You're obsessed with the fat lady! Drive us out of here!\nYou know what ? It is beets.I've crashed into a beet truck. So you two dig up, dig up dinosaurs? Must go faster. So you two dig up, dig up dinosaurs? Is this my espresso machine? Wh-what is-h-how did you get my espresso machine? This thing comes fully loaded. AM/FM radio, reclining bucket seats, and... power windows.\nYou know what ? It is beets.I've crashed into a beet truck. You really think you can fly that thing? Is this my espresso machine? Wh-what is-h-how did you get my espresso machine? Forget the fat lady! You're obsessed with the fat lady! Drive us out of here!\nDid he just throw my cat out of the window ? Must go faster.Yeah,but John, if The Pirates of the Caribbean breaks down, the pirates don’t eat the tourists. Hey, you know how I'm, like, always trying to save the planet? Here's my chance.God help us, we're in the hands of engineers.\nMust go faster... go, go, go, go, go! We gotta burn the rain forest, dump toxic waste, pollute the air, and rip up the OZONE!'Cause maybe if we screw up this planet enough, they won't want it anymore!God help us, we're in the hands of engineers. You know what? It is beets. I've crashed into a beet truck.", "I gave it a cold? I gave it a virus.", "Sprinkle4.svg", "I gave it a cold? I gave it a virus. A computer virus. God help us, we're in the hands of engineers. Jaguar shark! So tell me - does it really exist? This thing comes..." }
                 });
 
             migrationBuilder.InsertData(
@@ -178,7 +204,7 @@ namespace articles_app.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "vd376a8f-9eab-4bb9-9fca-30b01540f446", "v18be9c0-aa65-4af8-bd17-00bd9344e576" });
+                values: new object[] { "vd376a8f-9eab-4bb9-9fca-30b01540f446", "xy376a8f-9eab-4bb9-9fca-30b01540f44z" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -236,6 +262,9 @@ namespace articles_app.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "BlogPosts");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

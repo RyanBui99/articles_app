@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
+import React from 'react';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -9,23 +7,45 @@ import Container from '@mui/material/Container';
 import ILoginRegister from '../../interfaces/ILoginRegister';
 import NavbarComponent from '../../components/NavbarComponent';
 import { useNavigate } from 'react-router-dom';
+import { APIService } from '../../helpers/APIService';
+import Authentication from '../../helpers/Authentication';
+import SnackbarComponent from '../../components/SnackbarComponent';
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const [open, setOpen] = React.useState(false);
+  const [message, setMessage] = React.useState('');
+  const [severity, setSeverity] = React.useState('');
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
     const loginData: ILoginRegister = {
-      username: data.get('username'),
-      password: data.get('password'),
+      email: data.get('username')!.toString(),
+      password: data.get('password')!.toString(),
     };
-    console.log(loginData);
+    try {
+      const response = await APIService.login(loginData);
+      const { username, id, role } = response.data;
+      Authentication.setUser({ username, id, role });
+      setSeverity('success')
+      navigate('/');
+    } catch (error: any) {
+      setSeverity('error')
+      setMessage(error.response.data.message);
+    }
   };
 
   return (
     <>
-    <NavbarComponent />
+      <NavbarComponent />
       <Container
         component='main'
         maxWidth='xs'
@@ -37,6 +57,12 @@ export default function LoginPage() {
           height: '90vh',
         }}
       >
+        <SnackbarComponent
+          open={open}
+          handleClose={handleClose}
+          message={message}
+          severity={severity}
+        />
         <Box
           sx={{
             display: 'flex',
@@ -59,7 +85,7 @@ export default function LoginPage() {
               required
               fullWidth
               id='username'
-              label='username'
+              label='Username'
               name='username'
               autoComplete='username'
               autoFocus
@@ -79,6 +105,7 @@ export default function LoginPage() {
               fullWidth
               variant='contained'
               sx={{ mt: 3, mb: 2 }}
+              onClick={handleClick}
             >
               Sign In
             </Button>
