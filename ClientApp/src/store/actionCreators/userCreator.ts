@@ -36,7 +36,6 @@ export const addUsers = (userCredentials: ICreateEditUser) => {
       type: UserActionType.ADD_USER_PENDING,
     });
     try {
-      console.log(userCredentials);
       await APIService.register(userCredentials);
       const { data } = await APIService.getAllUsers();
       dispatch({

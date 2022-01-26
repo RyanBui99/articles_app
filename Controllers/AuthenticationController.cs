@@ -48,7 +48,7 @@ namespace articles_app.Controllers
                         if (user.Role == null)
                         {
                             await _userManager.AddToRoleAsync(newUser, "user");
-                            return Ok();
+                            return Ok(new ResponseToClient { Message = "Register Successful!" });
                         }
 
                         await _userManager.AddToRoleAsync(newUser, user.Role);

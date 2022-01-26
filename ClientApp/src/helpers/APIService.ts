@@ -20,7 +20,7 @@ export const APIService = {
     return response;
   },
 
-  async register(userCredentials: ICreateEditUser) {
+  async register(userCredentials: ICreateEditUser | ILoginRegister) {
     const response = await axios.post(
       `${URL}/api/authentication/register`,
       userCredentials
@@ -50,7 +50,6 @@ export const APIService = {
 
   async getAllPosts() {
     const response = await axios.get(`${URL}/api/blogpost/getPosts`);
-    console.log(response);
     return response;
   },
 
@@ -72,7 +71,6 @@ export const APIService = {
       blogPostAsFormData,
       { headers: { 'Content-Type': 'multipart/form-data' } }
     );
-    console.log(response);
     return response;
   },
 
