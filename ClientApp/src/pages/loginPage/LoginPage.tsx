@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -10,12 +10,13 @@ import { useNavigate } from 'react-router-dom';
 import { APIService } from '../../helpers/APIService';
 import Authentication from '../../helpers/Authentication';
 import SnackbarComponent from '../../components/SnackbarComponent';
+import { AlertColor } from '@mui/material';
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
-  const [message, setMessage] = React.useState('');
-  const [severity, setSeverity] = React.useState('');
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const [severity, setSeverity] = useState<AlertColor>();
 
   const handleClick = () => {
     setOpen(true);

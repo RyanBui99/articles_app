@@ -1,16 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import {
   Box,
-  Typography,
   TextField,
   FormControl,
   FormControlLabel,
@@ -19,12 +17,11 @@ import {
   RadioGroup,
   IconButton,
 } from '@material-ui/core';
-import ICreateEditUser from '../../interfaces/ICreateEditUser';
-import { APIService } from '../../helpers/APIService';
 import SnackbarComponent from '../SnackbarComponent';
 import IStorageUser from '../../interfaces/IStorageUser';
 import { editUser } from '../../store/actionCreators/userCreator';
 import { useDispatch } from 'react-redux';
+import { AlertColor } from '@mui/material';
 
 /**
  * Modal for creating users, restricted to admin ONLY!!
@@ -35,9 +32,9 @@ export default function EditUserModal(props: any) {
   const theme = useTheme();
   const dispatch = useDispatch();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-  const [open, setOpen] = React.useState<boolean>(false);
-  const [message, setMessage] = React.useState<string>('');
-  const [severity, setSeverity] = React.useState<string>('');
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const [severity, setSeverity] = useState<AlertColor>();
 
   const handleClick = () => {
     setOpen(true);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import CardActions from '@mui/material/CardActions';
@@ -19,11 +19,11 @@ export default function DetailedBlogPostPage() {
   const theme = useTheme();
   const dispatch = useDispatch();
   const { blogPost } = useTypedSelector((state) => state.blogPosts);
-  const blogPostId: any = useLocation().state;
-  const isLoggedIn = Authentication.getUser().id != 'null' ? true : false;
+  const blogPostId: string = useLocation().state as string;
+  const isLoggedIn = Authentication.getUser().id != 'null' ? true : false; //Check if user is logged in if userID is null or not
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getClickedBlogPost(blogPostId));
     blogPost.content;
   }, [dispatch]);

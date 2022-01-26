@@ -5,8 +5,13 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
+import IStorageBlogPosts from '../interfaces/IStorageBlogPosts';
 
-export default function BlogPosts(props: any) {
+interface Prop {
+  blogPost: IStorageBlogPosts
+}
+
+export default function BlogPosts({blogPost}: Prop) {
   return (
     <Card
       sx={{
@@ -17,19 +22,19 @@ export default function BlogPosts(props: any) {
       <CardMedia
         component='img'
         height='140'
-        src={props.blogPost.imageSrc}
-        alt={props.blogPost.imageName}
+        src={blogPost.imageSrc}
+        alt={blogPost.imageName}
       />
       <CardContent sx={{height: '240px'}}>
         <Typography gutterBottom variant='h5' component='div'>
-          {props.blogPost.header}
+          {blogPost.header}
         </Typography>
         <Typography variant='body2' color='text.secondary'>
-          {props.blogPost.preview}
+          {blogPost.preview}
         </Typography>
       </CardContent>
       <CardActions>
-        <Link to={`/blogPost/${props.blogPost.id}`} state={props.blogPost.id}>
+        <Link to={`/blogPost/${blogPost.id}`} state={blogPost.id}>
           READ FULL ARTICLE
         </Link>
       </CardActions>

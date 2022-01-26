@@ -66,8 +66,6 @@ namespace articles_app
                 RequestPath = "/Images"
             });
 
-            //SeedDatabase.SeedUsers(app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope().ServiceProvider);
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();

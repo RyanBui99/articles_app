@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import NavbarComponent from '../../components/NavbarComponent';
 import Grid from '@mui/material/Grid';
 import { useDispatch } from 'react-redux';
@@ -6,14 +6,13 @@ import { useTypedSelector } from '../../hooks/useTypeSelector';
 import { getBlogPosts } from '../../store/actionCreators/blogPostCreator';
 import IStorageBlogPosts from '../../interfaces/IStorageBlogPosts';
 import BlogPosts from '../../components/BlogPosts';
-import Box from '@material-ui/core/Box';
 import Container from '@mui/material/Container';
 
 export default function BlogPage() {
   const { blogPosts } = useTypedSelector((state) => state.blogPosts);
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getBlogPosts());
   }, [dispatch]);
 

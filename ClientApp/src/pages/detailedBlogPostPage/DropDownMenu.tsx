@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
@@ -17,8 +17,8 @@ interface Prop {
 }
 
 export default function DropDownMenu({ blogPostId, blogPost }: Prop) {
-  const [anchor, setAnchor] = React.useState(null);
-  const [open, setOpen] = React.useState(false);
+  const [anchor, setAnchor] = useState(null);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   
   const handleClickOpen = () => {
@@ -33,7 +33,7 @@ export default function DropDownMenu({ blogPostId, blogPost }: Prop) {
     navigate('/');
   };
 
-  const handleMenu = (event: any) => {
+  const handleMenu = (event: React.BaseSyntheticEvent) => {
     setAnchor(event.currentTarget);
   };
   return (

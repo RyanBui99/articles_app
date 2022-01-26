@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -13,20 +13,21 @@ import { editBlogPost } from '../../store/actionCreators/blogPostCreator';
 import IStorageBlogPosts from '../../interfaces/IStorageBlogPosts';
 import { IEditBlogPost } from '../../interfaces/IEditBlogPost';
 import BlogPostContent from '../BlogPostContent';
+import { AlertColor } from '@mui/material';
 
 export default function EditBlogPostModal(props: any) {
   const blogPost: IStorageBlogPosts = props.blogPost;
   const theme = useTheme();
   const dispatch = useDispatch();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-  const [open, setOpen] = React.useState(false);
-  const [message, setMessage] = React.useState('');
-  const [severity, setSeverity] = React.useState('success');
-  const [imageToServer, setImageToServer] = React.useState<File>();
-  const [image, setImage] = React.useState('');
-  const [imageName, setImageName] = React.useState('');
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const [severity, setSeverity] = useState<AlertColor>();
+  const [imageToServer, setImageToServer] = useState<File>();
+  const [image, setImage] = useState('');
+  const [imageName, setImageName] = useState('');
 
-  React.useEffect(() => {
+  useEffect(() => {
     setImage(blogPost.imageSrc);
     setImageName(props.blogPost.imageName);
   }, [blogPost.imageSrc, blogPost.imageName]);

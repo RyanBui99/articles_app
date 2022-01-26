@@ -1,5 +1,4 @@
-import React from 'react';
-import Typography from '@mui/material/Typography';
+import React, { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
@@ -15,8 +14,7 @@ interface Prop {
 }
 
 export default function MenuComponent({ blogPostId, blogPost }: Prop) {
-  const [anchor, setAnchor] = React.useState(null);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleClickOpen = () => {
@@ -31,9 +29,6 @@ export default function MenuComponent({ blogPostId, blogPost }: Prop) {
     navigate('/');
   };
 
-  const handleMenu = (event: any) => {
-    setAnchor(event.currentTarget);
-  };
   return (
     <>
       <CardActions>

@@ -11,17 +11,18 @@ import IStorageBlogPosts from '../interfaces/IStorageBlogPosts';
 interface Prop {
   selectedFile: Function;
   image: string;
-  blogPost: IStorageBlogPosts;
+  blogPost?: IStorageBlogPosts;
 }
 
 export default function BlogPostContent({
   selectedFile,
   image,
-  blogPost,
+  blogPost = {} as IStorageBlogPosts,
 }: Prop) {
   const Input = styled('input')({
     display: 'none',
   });
+  
 
   return (
     <>

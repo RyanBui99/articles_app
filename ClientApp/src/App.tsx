@@ -8,12 +8,10 @@ import DetailedBlogPostPage from './pages/detailedBlogPostPage/DetailedBlogPostP
 import LoginPage from './pages/loginPage/LoginPage';
 import RegisterPage from './pages/registerPage/RegisterPage';
 import { store } from './store/store';
-import CssBaseline from '@mui/material/CssBaseline';
 
 function App() {
   return (
     <div className='App'>
-      <CssBaseline />
       <Provider store={store}>
         <BrowserRouter>
           <Routes>

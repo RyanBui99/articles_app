@@ -1,7 +1,7 @@
-import { Paper, Box, Typography } from '@mui/material';
-import React from 'react';
+import { Paper, Box, Typography, Container, Button } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Container, Button } from 'reactstrap';
+
 import AdminUserTable from '../../components/AdminUserTable';
 import CreateUserModal from '../../components/modals/CreateUserModal';
 import NavbarComponent from '../../components/NavbarComponent';
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function admin() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const { users } = useTypedSelector((state) => state.users);
   const classes = useStyles();
@@ -42,7 +42,7 @@ export default function admin() {
     setOpen(false);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
 
@@ -50,7 +50,7 @@ export default function admin() {
     <>
       <NavbarComponent />
       <div className={classes.root}>
-        <Container className={classes.container} maxWidth='md'>
+        <Container className={classes.container} maxWidth='lg'>
           <Paper className={classes.paper}>
             <Box display='flex'>
               <Box flexGrow={2}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -18,10 +18,10 @@ import {
   DialogTitle,
 } from '@material-ui/core';
 import ICreateEditUser from '../../interfaces/ICreateEditUser';
-import { APIService } from '../../helpers/APIService';
 import SnackbarComponent from '../SnackbarComponent';
 import { useDispatch } from 'react-redux';
 import { addUsers } from '../../store/actionCreators/userCreator';
+import { AlertColor } from '@mui/material';
 
 /**
  * Modal for creating users, restricted to admin ONLY!!
@@ -32,9 +32,9 @@ export default function CreateUserModal(props: any) {
   const theme = useTheme();
   const dispatch = useDispatch();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-  const [open, setOpen] = React.useState(false);
-  const [message, setMessage] = React.useState('');
-  const [severity, setSeverity] = React.useState('success');
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const [severity, setSeverity] = useState<AlertColor>();
 
   const handleClick = () => {
     setOpen(true);
