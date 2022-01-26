@@ -14,16 +14,17 @@ interface Prop {
 }
 
 export default function MenuComponent({ blogPostId, blogPost }: Prop) {
-  const [open, setOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-
-  const handleClickOpen = () => {
-    setOpen(true);
+  
+  const openModal = () => {
+    setIsModalOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
+
   const deleteBlogPost = async () => {
     await APIService.deleteBlogPost(blogPostId);
     navigate('/');
@@ -32,7 +33,7 @@ export default function MenuComponent({ blogPostId, blogPost }: Prop) {
   return (
     <>
       <CardActions>
-        <IconButton onClick={handleClickOpen} sx={{ padding: '0' }}>
+        <IconButton onClick={openModal} sx={{ padding: '0' }}>
           <ModeEditOutlineOutlinedIcon color='primary' />
         </IconButton>
         <IconButton onClick={deleteBlogPost} sx={{ padding: '0' }}>
@@ -40,8 +41,8 @@ export default function MenuComponent({ blogPostId, blogPost }: Prop) {
         </IconButton>
       </CardActions>
       <EditBlogPostModal
-        handleclose={handleClose}
-        open={open}
+        closeModal={closeModal}
+        isModalOpen={isModalOpen}
         blogPost={blogPost}
       />
     </>

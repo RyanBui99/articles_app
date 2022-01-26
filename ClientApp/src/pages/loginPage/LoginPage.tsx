@@ -29,17 +29,17 @@ export default function LoginPage() {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const loginData: ILoginRegister = {
-      email: data.get('username')!.toString(),
+      username: data.get('username')!.toString(),
       password: data.get('password')!.toString(),
     };
     try {
       const response = await APIService.login(loginData);
       const { username, id, role } = response.data;
       Authentication.setUser({ username, id, role });
-      setSeverity('success')
+      setSeverity('success');
       navigate('/');
     } catch (error: any) {
-      setSeverity('error')
+      setSeverity('error');
       setMessage(error.response.data.message);
     }
   };

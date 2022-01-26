@@ -14,7 +14,7 @@ import CreateBlogPostModal from './modals/CreateBlogPostModal';
 export default function LoggedInOrLoggedOut() {
   const user = Authentication.getUser();
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [anchorNav, setAnchorNav] = useState(null);
 
   const handleOpenMenu = (e: React.BaseSyntheticEvent) => {
@@ -25,13 +25,13 @@ export default function LoggedInOrLoggedOut() {
     setAnchorNav(null);
   };
 
-  const handleClickOpen = () => {
+  const openModal = () => {
     handleCloseMenu();
-    setOpen(true);
+    setIsModalOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   const logout = () => {
@@ -78,11 +78,14 @@ export default function LoggedInOrLoggedOut() {
           open={Boolean(anchorNav)}
           onClose={handleCloseMenu}
         >
-          <MenuItem onClick={handleClickOpen}>Write a post</MenuItem>
+          <MenuItem onClick={openModal}>Write a post</MenuItem>
           <AdminOrUser />
           <MenuItem onClick={logout}>Log out</MenuItem>
         </Menu>
-        <CreateBlogPostModal handleclose={handleClose} open={open} />
+        <CreateBlogPostModal
+          closeModal={closeModal}
+          isModalOpen={isModalOpen}
+        />
       </Box>
     );
   } else {

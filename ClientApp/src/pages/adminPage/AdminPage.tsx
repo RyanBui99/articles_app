@@ -1,7 +1,6 @@
 import { Paper, Box, Typography, Container, Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-
 import AdminUserTable from '../../components/AdminUserTable';
 import CreateUserModal from '../../components/modals/CreateUserModal';
 import NavbarComponent from '../../components/NavbarComponent';
@@ -28,18 +27,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function admin() {
-  const [open, setOpen] = useState(false);
+export default function AdminPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const { users } = useTypedSelector((state) => state.users);
   const classes = useStyles();
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const openModal = () => {
+    setIsModalOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   useEffect(() => {
@@ -67,11 +66,11 @@ export default function admin() {
                 <Button
                   variant='contained'
                   color='primary'
-                  onClick={handleClickOpen}
+                  onClick={openModal}
                 >
                   CREATE
                 </Button>
-                <CreateUserModal handleclose={handleClose} open={open} />
+                <CreateUserModal closeModal={closeModal} isModalOpen={isModalOpen} />
               </Box>
             </Box>
             <AdminUserTable users={users} />

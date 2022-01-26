@@ -11,27 +11,19 @@ import { useTypedSelector } from '../../hooks/useTypeSelector';
 import { getClickedBlogPost } from '../../store/actionCreators/blogPostCreator';
 import Container from '@mui/material/Container';
 import Authentication from '../../helpers/Authentication';
-import { Box, useMediaQuery, useTheme } from '@material-ui/core';
-import DropDownMenu from './DropDownMenu';
+import { Box } from '@material-ui/core';
 import MenuComponent from './MenuComponent';
 
 export default function DetailedBlogPostPage() {
-  const theme = useTheme();
   const dispatch = useDispatch();
   const { blogPost } = useTypedSelector((state) => state.blogPosts);
   const blogPostId: string = useLocation().state as string;
   const isLoggedIn = Authentication.getUser().id != 'null' ? true : false; //Check if user is logged in if userID is null or not
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     dispatch(getClickedBlogPost(blogPostId));
     blogPost.content;
   }, [dispatch]);
-
-  const DisplayMore = () => {
-    if (isMobile) return <></>;
-    return <MenuComponent blogPostId={blogPostId} blogPost={blogPost} />;
-  };
 
   return (
     <>
@@ -42,9 +34,10 @@ export default function DetailedBlogPostPage() {
           display: 'flex',
           justifyContent: 'center',
         }}
-        maxWidth='xl'
+        maxWidth='lg'
+        disableGutters
       >
-        <Grid container>
+        <Grid width='100%'>
           <Card
             sx={{
               boxShadow: 'none',
@@ -57,12 +50,12 @@ export default function DetailedBlogPostPage() {
                 display: 'flex',
                 alignItems: 'flex-end',
                 justifyContent: 'flex-end',
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center center',
               }}
               height='280px'
             >
-              {isMobile && (
-                <DropDownMenu blogPostId={blogPostId} blogPost={blogPost} />
-              )}
             </Box>
             <CardContent>
               <CardActions
@@ -81,7 +74,9 @@ export default function DetailedBlogPostPage() {
                   {blogPost.header}
                 </Typography>
 
-                {isLoggedIn && <DisplayMore />}
+                {isLoggedIn && (
+                  <MenuComponent blogPostId={blogPostId} blogPost={blogPost} />
+                )}
               </CardActions>
 
               <Typography

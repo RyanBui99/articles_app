@@ -92,7 +92,7 @@ namespace articles_app.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(new ResponseToClient { Message = "Can't leave fields empty" });
             }
         }
     }

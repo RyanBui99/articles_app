@@ -15,8 +15,17 @@ import { IEditBlogPost } from '../../interfaces/IEditBlogPost';
 import BlogPostContent from '../BlogPostContent';
 import { AlertColor } from '@mui/material';
 
-export default function EditBlogPostModal(props: any) {
-  const blogPost: IStorageBlogPosts = props.blogPost;
+interface Prop {
+  closeModal: () => void;
+  isModalOpen: boolean;
+  blogPost: IStorageBlogPosts;
+}
+
+export default function EditBlogPostModal({
+  closeModal,
+  isModalOpen,
+  blogPost,
+}: Prop) {
   const theme = useTheme();
   const dispatch = useDispatch();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -29,7 +38,7 @@ export default function EditBlogPostModal(props: any) {
 
   useEffect(() => {
     setImage(blogPost.imageSrc);
-    setImageName(props.blogPost.imageName);
+    setImageName(blogPost.imageName);
   }, [blogPost.imageSrc, blogPost.imageName]);
 
   const handleClick = () => {
@@ -61,7 +70,7 @@ export default function EditBlogPostModal(props: any) {
       dispatch(editBlogPost(blogPost.id, editedBlogData));
       setSeverity('success');
       setMessage('Your post has been edited!');
-      props.handleclose();
+      closeModal();
     } catch (error: any) {
       setMessage(error.response.data.message);
       setSeverity('error');
@@ -78,8 +87,8 @@ export default function EditBlogPostModal(props: any) {
       />
       <Dialog
         fullScreen={fullScreen}
-        open={props.open}
-        onClose={props.handleclose}
+        open={isModalOpen}
+        onClose={closeModal}
         aria-labelledby='responsive-dialog-title'
         fullWidth
         maxWidth='lg'
@@ -91,7 +100,7 @@ export default function EditBlogPostModal(props: any) {
           <IconButton
             edge='start'
             color='inherit'
-            onClick={props.handleclose}
+            onClick={closeModal}
             aria-label='close'
           >
             <CloseIcon />

@@ -23,12 +23,18 @@ import { editUser } from '../../store/actionCreators/userCreator';
 import { useDispatch } from 'react-redux';
 import { AlertColor } from '@mui/material';
 
+interface Prop {
+  closeModal: () => void;
+  isModalOpen: boolean;
+  user: IStorageUser;
+}
+
 /**
- * Modal for creating users, restricted to admin ONLY!!
+ * Modal for editing users, restricted to admin ONLY!!
  * @param props
  * @returns
  */
-export default function EditUserModal(props: any) {
+export default function EditUserModal({ closeModal, isModalOpen, user }: Prop) {
   const theme = useTheme();
   const dispatch = useDispatch();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -52,13 +58,13 @@ export default function EditUserModal(props: any) {
       const createUserData: IStorageUser = {
         username: data.get('username')!.toString(),
         role: data.get('role')!.toString(),
-        id: props.user.id,
+        id: user.id,
       };
 
-      await dispatch(editUser(props.user.id, createUserData));
+      await dispatch(editUser(user.id, createUserData));
       setSeverity('success');
       setMessage('User edited successfully');
-      props.handleclose();
+      closeModal();
     } catch (error: any) {
       setSeverity('error');
 
@@ -79,8 +85,8 @@ export default function EditUserModal(props: any) {
       />
       <Dialog
         fullScreen={fullScreen}
-        open={props.open}
-        onClose={props.handleclose}
+        open={isModalOpen}
+        onClose={closeModal}
         aria-labelledby='responsive-dialog-title'
         fullWidth
       >
@@ -91,7 +97,7 @@ export default function EditUserModal(props: any) {
           <IconButton
             edge='start'
             color='inherit'
-            onClick={props.handleclose}
+            onClick={closeModal}
             aria-label='close'
           >
             <CloseIcon />
@@ -115,7 +121,7 @@ export default function EditUserModal(props: any) {
               name='username'
               autoComplete='username'
               autoFocus
-              defaultValue={props.user.username}
+              defaultValue={user.username}
               variant='outlined'
             />
             <FormControl component='fieldset' margin='dense'>

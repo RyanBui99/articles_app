@@ -14,7 +14,12 @@ import { createNewPost } from '../../store/actionCreators/blogPostCreator';
 import BlogPostContent from '../BlogPostContent';
 import { AlertColor } from '@mui/material';
 
-export default function CreateBlogPostModal(props: any) {
+interface Prop {
+  closeModal: () => void;
+  isModalOpen: boolean;
+}
+
+export default function CreateBlogPostModal({ closeModal, isModalOpen }: Prop) {
   const theme = useTheme();
   const dispatch = useDispatch();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -52,7 +57,7 @@ export default function CreateBlogPostModal(props: any) {
       dispatch(createNewPost(createBlogData));
       setSeverity('success');
       setMessage('Your post is now published!');
-      props.handleclose();
+      closeModal();
     } catch (error: any) {
       setMessage(error.response.data.message);
       setSeverity('error');
@@ -69,8 +74,8 @@ export default function CreateBlogPostModal(props: any) {
       />
       <Dialog
         fullScreen={fullScreen}
-        open={props.open}
-        onClose={props.handleclose}
+        open={isModalOpen}
+        onClose={closeModal}
         aria-labelledby='responsive-dialog-title'
         fullWidth
         maxWidth='lg'
@@ -84,7 +89,7 @@ export default function CreateBlogPostModal(props: any) {
           <IconButton
             edge='start'
             color='inherit'
-            onClick={props.handleclose}
+            onClick={closeModal}
             aria-label='close'
           >
             <CloseIcon />
@@ -92,10 +97,7 @@ export default function CreateBlogPostModal(props: any) {
         </DialogActions>
         <DialogContent dividers>
           <Box component='form' onSubmit={handleSubmit} width='100%'>
-            <BlogPostContent
-              selectedFile={selectedFile}
-              image={image}
-            />
+            <BlogPostContent selectedFile={selectedFile} image={image} />
             <DialogActions>
               <Button onClick={handleClick} autoFocus type='submit'>
                 Create

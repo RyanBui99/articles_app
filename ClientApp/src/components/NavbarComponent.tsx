@@ -5,9 +5,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link } from 'react-router-dom';
 import LoggedInOrLoggedOut from './LoggedInOrLoggedOut';
+import { CssBaseline } from '@material-ui/core';
 
 export default function NavbarComponent() {
   return (
+    <>
+    <CssBaseline />
     <AppBar position='static' sx={{ boxShadow: 'none' }}>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
@@ -35,5 +38,6 @@ export default function NavbarComponent() {
         </Toolbar>
       </Container>
     </AppBar>
+    </>
   );
 }

@@ -16,11 +16,11 @@ import { useDispatch } from 'react-redux';
 import { deleteUser } from '../store/actionCreators/userCreator';
 
 interface Prop {
-  users: IStorageUser[]
+  users: IStorageUser[];
 }
 
 export default function AdminUserTable({ users }: Prop) {
-  const [open, setOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const [clickedUser, setClickedUser] = useState<IStorageUser>({
     username: '',
@@ -28,12 +28,12 @@ export default function AdminUserTable({ users }: Prop) {
     role: '',
   });
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const openModal = () => {
+    setIsModalOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -60,7 +60,7 @@ export default function AdminUserTable({ users }: Prop) {
                 >
                   <Button
                     onClick={() => {
-                      handleClickOpen();
+                      openModal();
                       setClickedUser(user);
                     }}
                   >
@@ -77,8 +77,8 @@ export default function AdminUserTable({ users }: Prop) {
             </TableRow>
           ))}
           <EditUserModal
-            handleclose={handleClose}
-            open={open}
+            closeModal={closeModal}
+            isModalOpen={isModalOpen}
             user={clickedUser}
           />
         </TableBody>

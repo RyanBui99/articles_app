@@ -8,10 +8,10 @@ import { Link } from 'react-router-dom';
 import IStorageBlogPosts from '../interfaces/IStorageBlogPosts';
 
 interface Prop {
-  blogPost: IStorageBlogPosts
+  blogPost: IStorageBlogPosts;
 }
 
-export default function BlogPosts({blogPost}: Prop) {
+export default function BlogPosts({ blogPost }: Prop) {
   return (
     <Card
       sx={{
@@ -25,7 +25,7 @@ export default function BlogPosts({blogPost}: Prop) {
         src={blogPost.imageSrc}
         alt={blogPost.imageName}
       />
-      <CardContent sx={{height: '240px'}}>
+      <CardContent sx={{ height: '240px' }}>
         <Typography gutterBottom variant='h5' component='div'>
           {blogPost.header}
         </Typography>
@@ -34,7 +34,11 @@ export default function BlogPosts({blogPost}: Prop) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Link to={`/blogPost/${blogPost.id}`} state={blogPost.id}>
+        <Link
+          to={`/blogPost/${blogPost.id}`}
+          state={blogPost.id}
+          style={{ textDecoration: 'none', color: '#1976d2' }}
+        >
           READ FULL ARTICLE
         </Link>
       </CardActions>
