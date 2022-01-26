@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -6,20 +6,45 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import ILoginRegister from '../../interfaces/ILoginRegister';
 import NavbarComponent from '../../components/NavbarComponent';
+import { APIService } from '../../helpers/APIService';
+import { AlertColor } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import SnackbarComponent from '../../components/SnackbarComponent';
 
 export default function RegisterPage() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const [severity, setSeverity] = useState<AlertColor>();
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const registerData: ILoginRegister = {
-      email: data.get('username')!.toString(),
+      username: data.get('username')!.toString(),
       password: data.get('password')!.toString(),
     };
+    try {
+      await APIService.register(registerData);
+      setSeverity('success');
+      navigate('/login');
+    } catch (error: any) {
+      setSeverity('error');
+      setMessage(error.response.data.message);
+    }
   };
 
   return (
     <>
-    <NavbarComponent />
+      <NavbarComponent />
       <Container
         component='main'
         maxWidth='xs'
@@ -31,6 +56,12 @@ export default function RegisterPage() {
           height: '90vh',
         }}
       >
+        <SnackbarComponent
+          open={open}
+          handleClose={handleClose}
+          message={message}
+          severity={severity}
+        />
         <Box
           sx={{
             display: 'flex',
@@ -73,6 +104,7 @@ export default function RegisterPage() {
               fullWidth
               variant='contained'
               sx={{ mt: 3, mb: 2 }}
+              onClick={handleClick}
             >
               Sign up
             </Button>

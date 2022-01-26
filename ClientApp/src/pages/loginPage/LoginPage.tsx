@@ -25,6 +25,7 @@ export default function LoginPage() {
   const handleClose = () => {
     setOpen(false);
   };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);

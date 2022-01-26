@@ -42,7 +42,6 @@ export default function CreateBlogPostModal({ closeModal, isModalOpen }: Prop) {
     const imageUrl = URL.createObjectURL(e.target.files[0]);
     setImage(imageUrl);
     setImageToServer(e.target.files[0]);
-    console.log(e.target.files[0]);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

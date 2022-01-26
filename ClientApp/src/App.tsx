@@ -16,7 +16,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/login' element={<LoginPage />} />
-            {/* <Route path='/register' element={<RegisterPage />} /> */}
+            <Route path='/register' element={<RegisterPage />} />
             <Route
               path='/admin/dashboard'
               element={<PrivateRoute component={AdminPage} role='admin' />}
