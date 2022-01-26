@@ -5,25 +5,33 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
-import React from 'react';
+import React, { useState } from 'react';
 import Authentication from '../helpers/Authentication';
 import { navbarLinks } from '../constants/navbarLinks';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@material-ui/core';
 import CreateBlogPostModal from './modals/CreateBlogPostModal';
 
-export default function LoggedInOrLoggedOut(props: any) {
+export default function LoggedInOrLoggedOut() {
   const user = Authentication.getUser();
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [anchorNav, setAnchorNav] = useState(null);
 
-  const handleClickOpen = () => {
-    props.handleCloseMenu()
-    setOpen(true);
+  const handleOpenMenu = (e: React.BaseSyntheticEvent) => {
+    setAnchorNav(e.currentTarget);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleCloseMenu = () => {
+    setAnchorNav(null);
+  };
+
+  const openModal = () => {
+    handleCloseMenu();
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   const logout = () => {
@@ -35,7 +43,7 @@ export default function LoggedInOrLoggedOut(props: any) {
     if (user.role == 'admin') {
       return (
         <>
-          {navbarLinks.adminLinks.map((link: any, key: number) => (
+          {navbarLinks.adminLinks.map((link, key: number) => (
             <MenuItem component={link.component} to={link.link} key={key}>
               {link.linkName}
             </MenuItem>
@@ -50,14 +58,14 @@ export default function LoggedInOrLoggedOut(props: any) {
     return (
       <Box>
         <Tooltip title='Open settings'>
-          <IconButton onClick={props.handleOpenMenu}>
+          <IconButton onClick={handleOpenMenu}>
             <Avatar alt={user.username} src='/static/images/avatar/2.jpg' />
           </IconButton>
         </Tooltip>
         <Menu
           sx={{ mt: '45px' }}
           id='menu-appbar'
-          anchorEl={props.anchorNav}
+          anchorEl={anchorNav}
           anchorOrigin={{
             vertical: 'top',
             horizontal: 'right',
@@ -67,14 +75,17 @@ export default function LoggedInOrLoggedOut(props: any) {
             vertical: 'top',
             horizontal: 'right',
           }}
-          open={Boolean(props.anchorNav)}
-          onClose={props.handleCloseMenu}
+          open={Boolean(anchorNav)}
+          onClose={handleCloseMenu}
         >
-          <MenuItem onClick={handleClickOpen}>Write a post</MenuItem>
+          <MenuItem onClick={openModal}>Write a post</MenuItem>
           <AdminOrUser />
           <MenuItem onClick={logout}>Log out</MenuItem>
         </Menu>
-        <CreateBlogPostModal handleclose={handleClose} open={open} />
+        <CreateBlogPostModal
+          closeModal={closeModal}
+          isModalOpen={isModalOpen}
+        />
       </Box>
     );
   } else {
@@ -86,14 +97,14 @@ export default function LoggedInOrLoggedOut(props: any) {
             aria-label='nav-links'
             aria-controls='menu-appbar'
             aria-haspopup='true'
-            onClick={props.handleOpenMenu}
+            onClick={handleOpenMenu}
             color='inherit'
           >
             <MenuIcon fontSize='large' />
           </IconButton>
           <Menu
             id='menu-appbar'
-            anchorEl={props.anchorNav}
+            anchorEl={anchorNav}
             anchorOrigin={{
               vertical: 'top',
               horizontal: 'right',
@@ -103,11 +114,11 @@ export default function LoggedInOrLoggedOut(props: any) {
               vertical: 'top',
               horizontal: 'right',
             }}
-            open={Boolean(props.anchorNav)}
-            onClose={props.handleCloseMenu}
+            open={Boolean(anchorNav)}
+            onClose={handleCloseMenu}
             sx={{ mt: '40px' }}
           >
-            {navbarLinks.navLinks.map((link: any, key: number) => (
+            {navbarLinks.navLinks.map((link, key: number) => (
               <MenuItem component={link.component} to={link.link} key={key}>
                 {link.linkName}
               </MenuItem>
@@ -116,7 +127,7 @@ export default function LoggedInOrLoggedOut(props: any) {
         </Box>
 
         <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-          {navbarLinks.navLinks.map((link: any, key: number) => (
+          {navbarLinks.navLinks.map((link, key: number) => (
             <MenuItem component={link.component} to={link.link} key={key}>
               {link.linkName}
             </MenuItem>

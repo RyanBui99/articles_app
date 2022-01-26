@@ -1,5 +1,4 @@
-import React from 'react';
-import Typography from '@mui/material/Typography';
+import React, { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
@@ -15,29 +14,26 @@ interface Prop {
 }
 
 export default function MenuComponent({ blogPostId, blogPost }: Prop) {
-  const [anchor, setAnchor] = React.useState(null);
-  const [open, setOpen] = React.useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-
-  const handleClickOpen = () => {
-    setOpen(true);
+  
+  const openModal = () => {
+    setIsModalOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
+
   const deleteBlogPost = async () => {
     await APIService.deleteBlogPost(blogPostId);
     navigate('/');
   };
 
-  const handleMenu = (event: any) => {
-    setAnchor(event.currentTarget);
-  };
   return (
     <>
       <CardActions>
-        <IconButton onClick={handleClickOpen} sx={{ padding: '0' }}>
+        <IconButton onClick={openModal} sx={{ padding: '0' }}>
           <ModeEditOutlineOutlinedIcon color='primary' />
         </IconButton>
         <IconButton onClick={deleteBlogPost} sx={{ padding: '0' }}>
@@ -45,8 +41,8 @@ export default function MenuComponent({ blogPostId, blogPost }: Prop) {
         </IconButton>
       </CardActions>
       <EditBlogPostModal
-        handleclose={handleClose}
-        open={open}
+        closeModal={closeModal}
+        isModalOpen={isModalOpen}
         blogPost={blogPost}
       />
     </>

@@ -1,16 +1,12 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import NavbarComponent from '../../components/NavbarComponent';
-import CreateUserModal from '../../components/modals/CreateUserModal';
+import { Paper, Box, Typography, Container, Button } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import AdminUserTable from '../../components/AdminUserTable';
+import CreateUserModal from '../../components/modals/CreateUserModal';
+import NavbarComponent from '../../components/NavbarComponent';
 import { useTypedSelector } from '../../hooks/useTypeSelector';
 import { getUsers } from '../../store/actionCreators/userCreator';
-import AdminUserTable from '../../components/AdminUserTable';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,21 +27,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function admin() {
-  const [open, setOpen] = React.useState(false);
+export default function AdminPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const { users } = useTypedSelector((state) => state.users);
   const classes = useStyles();
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const openModal = () => {
+    setIsModalOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
 
@@ -53,7 +49,7 @@ export default function admin() {
     <>
       <NavbarComponent />
       <div className={classes.root}>
-        <Container className={classes.container} maxWidth='md'>
+        <Container className={classes.container} maxWidth='lg'>
           <Paper className={classes.paper}>
             <Box display='flex'>
               <Box flexGrow={2}>
@@ -70,11 +66,11 @@ export default function admin() {
                 <Button
                   variant='contained'
                   color='primary'
-                  onClick={handleClickOpen}
+                  onClick={openModal}
                 >
                   CREATE
                 </Button>
-                <CreateUserModal handleclose={handleClose} open={open} />
+                <CreateUserModal closeModal={closeModal} isModalOpen={isModalOpen} />
               </Box>
             </Box>
             <AdminUserTable users={users} />

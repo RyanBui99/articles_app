@@ -5,19 +5,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link } from 'react-router-dom';
 import LoggedInOrLoggedOut from './LoggedInOrLoggedOut';
+import { CssBaseline } from '@material-ui/core';
 
 export default function NavbarComponent() {
-  const [anchorNav, setAnchorNav] = React.useState(null);
-
-  const handleOpenMenu = (e: any) => {
-    setAnchorNav(e.currentTarget);
-  };
-
-  const handleCloseMenu = () => {
-    setAnchorNav(null);
-  };
-
   return (
+    <>
+    <CssBaseline />
     <AppBar position='static' sx={{ boxShadow: 'none' }}>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
@@ -41,13 +34,10 @@ export default function NavbarComponent() {
               GigaBlog
             </Link>
           </Typography>
-          <LoggedInOrLoggedOut
-            handleOpenMenu={handleOpenMenu}
-            handleCloseMenu={handleCloseMenu}
-            anchorNav={anchorNav}
-          />
+          <LoggedInOrLoggedOut />
         </Toolbar>
       </Container>
     </AppBar>
+    </>
   );
 }

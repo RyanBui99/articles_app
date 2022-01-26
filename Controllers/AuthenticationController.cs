@@ -30,7 +30,7 @@ namespace articles_app.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var existingUser = await _userManager.FindByEmailAsync(user.Email);
+                    var existingUser = await _userManager.FindByNameAsync(user.Username);
 
                     // Check if email already exusts
                     if (existingUser != null)
@@ -38,7 +38,7 @@ namespace articles_app.Controllers
                         return BadRequest(new ResponseToClient { Message = "Username already exists" });
                     }
 
-                    var newUser = new IdentityUser() { Email = user.Email, UserName = user.Email };
+                    var newUser = new IdentityUser() { UserName = user.Username };
                     var userCreation = await _userManager.CreateAsync(newUser, user.Password);
                     if (userCreation.Succeeded)
                     {
@@ -73,7 +73,7 @@ namespace articles_app.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var existingUser = await _userManager.FindByEmailAsync(user.Email);
+                    var existingUser = await _userManager.FindByNameAsync(user.Username);
                     var isCorrect = await _userManager.CheckPasswordAsync(existingUser, user.Password);
 
                     // Check if user exists by finding their email
@@ -83,7 +83,7 @@ namespace articles_app.Controllers
                         return BadRequest(new ResponseToClient { Message = "Invalid username or Incorrect password"});
                     }
 
-                    var loggedInUser = await _userManager.FindByEmailAsync(user.Email);
+                    var loggedInUser = await _userManager.FindByNameAsync(user.Username);
                     var role = await _userManager.GetRolesAsync(loggedInUser);
 
                     return Ok(new ResponseToClient { Username = loggedInUser.UserName, Id = loggedInUser.Id, Role = role.First() });

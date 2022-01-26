@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -18,23 +18,28 @@ import {
   DialogTitle,
 } from '@material-ui/core';
 import ICreateEditUser from '../../interfaces/ICreateEditUser';
-import { APIService } from '../../helpers/APIService';
 import SnackbarComponent from '../SnackbarComponent';
 import { useDispatch } from 'react-redux';
 import { addUsers } from '../../store/actionCreators/userCreator';
+import { AlertColor } from '@mui/material';
+
+interface Prop {
+  closeModal: () => void;
+  isModalOpen: boolean;
+}
 
 /**
  * Modal for creating users, restricted to admin ONLY!!
  * @param props
  * @returns
  */
-export default function CreateUserModal(props: any) {
+export default function CreateUserModal({ closeModal, isModalOpen }: Prop) {
   const theme = useTheme();
   const dispatch = useDispatch();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-  const [open, setOpen] = React.useState(false);
-  const [message, setMessage] = React.useState('');
-  const [severity, setSeverity] = React.useState('success');
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const [severity, setSeverity] = useState<AlertColor>();
 
   const handleClick = () => {
     setOpen(true);
@@ -50,7 +55,7 @@ export default function CreateUserModal(props: any) {
     try {
       const data = new FormData(e.currentTarget);
       const createUserData: ICreateEditUser = {
-        email: data.get('username')!.toString(),
+        username: data.get('username')!.toString(),
         password: data.get('password')!.toString(),
         role: data.get('role')!.toString(),
       };
@@ -58,12 +63,12 @@ export default function CreateUserModal(props: any) {
       await dispatch(addUsers(createUserData));
       setSeverity('success');
       setMessage('User created successfully');
-      props.handleclose();
+      closeModal();
     } catch (error: any) {
       setSeverity('error');
       if (error.response == undefined)
         setMessage('Something went wront. Maybe you forgot something');
-        
+
       setMessage(error.response.data.message);
     }
   };
@@ -78,8 +83,8 @@ export default function CreateUserModal(props: any) {
       />
       <Dialog
         fullScreen={fullScreen}
-        open={props.open}
-        onClose={props.handleclose}
+        open={isModalOpen}
+        onClose={closeModal}
         aria-labelledby='responsive-dialog-title'
         fullWidth
       >
@@ -92,7 +97,7 @@ export default function CreateUserModal(props: any) {
           <IconButton
             edge='start'
             color='inherit'
-            onClick={props.handleclose}
+            onClick={closeModal}
             aria-label='close'
           >
             <CloseIcon />

@@ -1,5 +1,5 @@
 export default interface ICreateEditUser {
-    email: string | undefined,
-    password: string | undefined,
-    role: string | undefined,
+  username: string;
+  password: string;
+  role: string;
 }

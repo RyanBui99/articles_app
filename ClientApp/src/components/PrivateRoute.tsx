@@ -4,7 +4,6 @@ import Authentication from '../helpers/Authentication';
 
 interface Props {
   component: React.ComponentType;
-//   path?: string;
   role: string;
 }
 

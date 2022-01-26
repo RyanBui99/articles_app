@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Table from '@material-ui/core/Table';
 import {
   TableContainer,
@@ -10,27 +10,30 @@ import {
   Button,
 } from '@material-ui/core';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { APIService } from '../helpers/APIService';
 import IStorageUser from '../interfaces/IStorageUser';
 import EditUserModal from './modals/EditUserModal';
 import { useDispatch } from 'react-redux';
 import { deleteUser } from '../store/actionCreators/userCreator';
 
-export default function AdminUserTable(props: any) {
-  const [open, setOpen] = React.useState(false);
+interface Prop {
+  users: IStorageUser[];
+}
+
+export default function AdminUserTable({ users }: Prop) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
-  const [clickedUser, setClickedUser] = React.useState<IStorageUser>({
+  const [clickedUser, setClickedUser] = useState<IStorageUser>({
     username: '',
     id: '',
     role: '',
   });
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const openModal = () => {
+    setIsModalOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -45,7 +48,7 @@ export default function AdminUserTable(props: any) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {props.users.map((user: IStorageUser, key: number) => (
+          {users.map((user: IStorageUser, key: number) => (
             <TableRow key={key}>
               <TableCell align='center'>{user.id}</TableCell>
               <TableCell align='left'>{user.username}</TableCell>
@@ -57,7 +60,7 @@ export default function AdminUserTable(props: any) {
                 >
                   <Button
                     onClick={() => {
-                      handleClickOpen();
+                      openModal();
                       setClickedUser(user);
                     }}
                   >
@@ -74,8 +77,8 @@ export default function AdminUserTable(props: any) {
             </TableRow>
           ))}
           <EditUserModal
-            handleclose={handleClose}
-            open={open}
+            closeModal={closeModal}
+            isModalOpen={isModalOpen}
             user={clickedUser}
           />
         </TableBody>

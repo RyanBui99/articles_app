@@ -1,34 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import Card from '@mui/material/Card';
 import CloseIcon from '@mui/icons-material/Close';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import CardMedia from '@mui/material/CardMedia';
 import { useTheme } from '@mui/material/styles';
-import { Box, TextField, IconButton, DialogTitle } from '@material-ui/core';
-import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
-import TitleRoundedIcon from '@mui/icons-material/TitleRounded';
+import { Box, IconButton, DialogTitle } from '@material-ui/core';
 import SnackbarComponent from '../SnackbarComponent';
 import { useDispatch } from 'react-redux';
-import { styled } from '@mui/material/styles';
 import { ICreateBlogPost } from '../../interfaces/ICreateBlogPost';
 import { createNewPost } from '../../store/actionCreators/blogPostCreator';
+import BlogPostContent from '../BlogPostContent';
+import { AlertColor } from '@mui/material';
 
-export default function CreateBlogPostModal(props: any) {
-  const Input = styled('input')({
-    display: 'none',
-  });
+interface Prop {
+  closeModal: () => void;
+  isModalOpen: boolean;
+}
+
+export default function CreateBlogPostModal({ closeModal, isModalOpen }: Prop) {
   const theme = useTheme();
   const dispatch = useDispatch();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-  const [open, setOpen] = React.useState(false);
-  const [message, setMessage] = React.useState('');
-  const [severity, setSeverity] = React.useState('success');
-  const [imageToServer, setImageToServer] = React.useState<File>();
-  const [image, setImage] = React.useState('');
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const [severity, setSeverity] = useState<AlertColor>();
+  const [imageToServer, setImageToServer] = useState<File>();
+  const [image, setImage] = useState('');
 
   const handleClick = () => {
     setOpen(true);
@@ -43,7 +42,7 @@ export default function CreateBlogPostModal(props: any) {
     const imageUrl = URL.createObjectURL(e.target.files[0]);
     setImage(imageUrl);
     setImageToServer(e.target.files[0]);
-    console.log(e.target.files[0])
+    console.log(e.target.files[0]);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -58,7 +57,7 @@ export default function CreateBlogPostModal(props: any) {
       dispatch(createNewPost(createBlogData));
       setSeverity('success');
       setMessage('Your post is now published!');
-      props.handleclose();
+      closeModal();
     } catch (error: any) {
       setMessage(error.response.data.message);
       setSeverity('error');
@@ -75,8 +74,8 @@ export default function CreateBlogPostModal(props: any) {
       />
       <Dialog
         fullScreen={fullScreen}
-        open={props.open}
-        onClose={props.handleclose}
+        open={isModalOpen}
+        onClose={closeModal}
         aria-labelledby='responsive-dialog-title'
         fullWidth
         maxWidth='lg'
@@ -90,7 +89,7 @@ export default function CreateBlogPostModal(props: any) {
           <IconButton
             edge='start'
             color='inherit'
-            onClick={props.handleclose}
+            onClick={closeModal}
             aria-label='close'
           >
             <CloseIcon />
@@ -98,65 +97,7 @@ export default function CreateBlogPostModal(props: any) {
         </DialogActions>
         <DialogContent dividers>
           <Box component='form' onSubmit={handleSubmit} width='100%'>
-            <label htmlFor='contained-button-file'>
-              <Input
-                accept='image/*'
-                id='contained-button-file'
-                multiple
-                type='file'
-                name='image'
-                onChange={selectedFile}
-              />
-              <Button variant='contained' component='span'>
-                Upload
-              </Button>
-            </label>
-
-            <Card>
-              <CardMedia
-                component='img'
-                height='140'
-                image={image}
-                alt='green iguana'
-              />
-            </Card>
-            <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-              <TitleRoundedIcon
-                sx={{ color: 'action.active', mr: 1, my: 3 }}
-                fontSize='large'
-              />
-              <TextField
-                margin='normal'
-                required
-                fullWidth
-                id='header'
-                label='Title'
-                name='header'
-                autoComplete='header'
-                inputProps={{ maxLength: 56 }}
-                helperText='Can max be 55 characters in length'
-                // inputProps={{ style: { fontSize: 40 } }}
-                // InputLabelProps={{ style: { fontSize: 40 } }}
-              />
-            </Box>
-
-            <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-              <AddCircleOutlineRoundedIcon
-                sx={{ color: 'action.active', mr: 1, my: 0.9 }}
-                fontSize='large'
-              />
-              <TextField
-                margin='normal'
-                required
-                fullWidth
-                multiline
-                id='content'
-                label='Tell us your story...'
-                name='content'
-                autoComplete='content'
-                autoFocus
-              />
-            </Box>
+            <BlogPostContent selectedFile={selectedFile} image={image} />
             <DialogActions>
               <Button onClick={handleClick} autoFocus type='submit'>
                 Create
